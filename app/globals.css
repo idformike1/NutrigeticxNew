@@ -1,26 +1,171 @@
+/* Local fonts from /public/images/ */
+@font-face {
+  font-family: "Aeonik";
+  src: url("/images/68b95166e7466a8c0e6c83ce_aeonik-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aeonik";
+  src: url("/images/68b95166dbb06e1845ace796_aeonik-medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Aeonik", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-green: #2e3a1f;
+  --color-brand-beige: #f4ede6;
+  --color-brand-light-green: #8aab5a;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #f4ede6;
+  --foreground: #2e3a1f;
+  --padding-web: 1.88em;
+  --padding-mobile: 1.25em;
+  --section-padding: 7.5em; /* Refined to match original rhythm */
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Aeonik", "Inter", ui-sans-serif, system-ui, sans-serif;
+  overflow-x: hidden;
+  /* Option A: Global Scaling Implementation */
+  font-size: 4.2vw; /* Mobile base */
 }
+
+@media screen and (min-width: 768px) {
+  body {
+    font-size: 1.8vw; /* Tablet base */
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  body {
+    font-size: 1.04166vw; /* Exact Desktop base (20px at 1920px) */
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-brand-green); border-radius: 3px; }
+
+/* =============================================
+   TYPOGRAPHY
+   ============================================= */
+.text-100-regular {
+  font-size: 5em; /* Adjusted to match original scale */
+  line-height: 0.88; /* Tighter leading */
+  font-weight: 400;
+  letter-spacing: -0.04em; /* Tighter kerning */
+}
+
+.text-80-regular {
+  font-size: 4em;
+  line-height: 0.9;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.text-60-regular {
+  font-size: 3em;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.text-44-regular {
+  font-size: 2.2em;
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.text-30-regular {
+  font-size: 1.5em;
+  line-height: 1.2;
+  font-weight: 400;
+}
+
+.text-18-caps {
+  font-size: 0.9em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.text-16-regular-caps {
+  font-size: 0.8em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.text-14-caps {
+  font-size: 0.7em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* =============================================
+   UTILITY COLORS
+   ============================================= */
+.green { color: var(--color-brand-green); }
+.beige { color: var(--color-brand-beige); }
+
+/* =============================================
+   LENIS SMOOTH SCROLLING REQS
+   ============================================= */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* =============================================
+   FOOTER REVEAL EFFECT
+   ============================================= */
+main {
+  position: relative;
+  z-index: 10;
+  background-color: var(--background);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 0;
+}
+
+/* =============================================
+   UTILITIES
+   ============================================= */
+.split-line { overflow: hidden; }
+.split-char { display: inline-block; will-change: transform, opacity; }
+
+
+
