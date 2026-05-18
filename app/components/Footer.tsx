@@ -82,14 +82,8 @@ export default function Footer() {
           </div>
         </div>
   
-        {/* Big Leaf Icon at bottom */}
-        <div className="footer-item opacity-0 flex flex-col items-center justify-center pt-[5em] border-t border-[#2e3a1f]/10">
-          <div className="mb-[5em]">
-             <svg width="10em" height="7em" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#2e3a1f]">
-                <path d="M60 80C60 80 50 60 40 50C30 40 0 40 0 40C0 40 30 35 40 25C50 15 60 0 60 0C60 0 70 15 80 25C90 35 120 40 120 40C120 40 90 45 80 55C70 65 60 80 60 80Z" fill="currentColor" />
-              </svg>
-          </div>
-          
+        {/* Footer Bottom Info */}
+        <div className="footer-item opacity-0 flex flex-col items-center justify-center pt-[3em] border-t border-[#2e3a1f]/10">
           <div className="w-full flex flex-col md:flex-row justify-between items-center gap-[4em] lg:gap-0 opacity-40">
              <p className="text-14-caps">© 2026 NUTRIGETIC INC.</p>
              <div className="flex gap-[3em]">

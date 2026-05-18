@@ -98,10 +98,10 @@ export default function StatsGrid() {
     <section id="s-numbers" className="relative z-10 bg-[#F4EDE6] overflow-hidden">
       {/* Background video */}
       <div className="absolute inset-0 z-0">
-        <video muted loop playsInline autoPlay className="w-full h-full object-cover opacity-10">
-          <source src="/images/corn.mp4" type="video/mp4" />
+        <video muted loop playsInline autoPlay className="w-full h-full object-cover opacity-[0.04]">
+          <source src="/images/tab.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-[#F4EDE6]/80" />
+        <div className="absolute inset-0 bg-[#F4EDE6]/85" />
       </div>
  
       <div className="relative z-10 w-full py-[var(--section-padding)] px-[var(--padding-web)]">
@@ -115,10 +115,10 @@ export default function StatsGrid() {
  
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-[5em] items-start">
           {/* Left: Large Image */}
-          <div className="relative aspect-[4/5] lg:aspect-[1/1.2] overflow-hidden rounded-[0.25em]">
+          <div className="relative aspect-[4/5] lg:aspect-[1/1.2] overflow-hidden rounded-[16px] border border-[#2e3a1f]/10 shadow-[0_15px_40px_rgba(46,58,31,0.06)]">
              <img 
-               src="/images/68bdf00d8fb03044e2d3834d_field_img_(1).avif" 
-               alt="Farmer in field" 
+               src="/images/wellness_hero_tablet.png" 
+               alt="Nutrigetic biomarker telemetry analytics dashboard" 
                className="w-full h-full object-cover"
              />
           </div>

@@ -69,13 +69,44 @@ export default function Navigation() {
   };
 
   const NutrigeticLogo = () => (
-    <div className="flex flex-col items-center">
-      {/* Leaf icon */}
-      <svg width="32" height="18" viewBox="0 0 32 18" fill="none" xmlns="http://www.w3.org/2000/svg" className="mb-1">
-        <path d="M16 18C16 18 13.5 14 10 12C6.5 10 0 10 0 10C0 10 6.5 8 10 6C13.5 4 16 0 16 0C16 0 18.5 4 22 6C25.5 8 32 10 32 10C32 10 25.5 12 22 14C18.5 16 16 18 16 18Z" fill="currentColor" />
+    <div className="flex items-center gap-[0.7em] group cursor-pointer">
+      {/* High-contrast premium monotone double-helix leaf vector */}
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-current transition-transform duration-700 group-hover:rotate-[180deg] shrink-0">
+        {/* Outer orbital rings (synergy) */}
+        <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.35" />
+        
+        {/* Double Helix Strand Left */}
+        <path 
+          d="M10 6C10 6 16 11 16 16C16 21 10 26 10 26" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+        />
+        
+        {/* Double Helix Strand Right */}
+        <path 
+          d="M22 6C22 6 16 11 16 16C16 21 22 26 22 26" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+        />
+        
+        {/* Helix Rungs (genomic lines) */}
+        <line x1="12" y1="10" x2="20" y2="10" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
+        <line x1="14" y1="16" x2="18" y2="16" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
+        <line x1="12" y1="22" x2="20" y2="22" stroke="currentColor" strokeWidth="1.5" opacity="0.6" />
+        
+        {/* Central Botanical Leaf (Clinical Performance) */}
+        <path 
+          d="M16 9C16 9 12.5 13 16 19C19.5 13 16 9 16 9Z" 
+          fill="currentColor" 
+        />
       </svg>
-      {/* Text logo */}
-      <span className="text-[1.125em] font-medium tracking-tight leading-none">Nutrigetic</span>
+      {/* Brand Text with modern spacing */}
+      <div className="flex flex-col items-start leading-none">
+        <span className="text-[1.15em] font-semibold tracking-[0.05em] uppercase text-current">Nutrigetic</span>
+        <span className="text-[0.55em] font-semibold tracking-[0.2em] uppercase text-current/60 mt-[0.25em]">Clinical Performance</span>
+      </div>
     </div>
   );
 
