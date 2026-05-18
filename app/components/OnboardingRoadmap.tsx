@@ -98,8 +98,8 @@ export default function OnboardingRoadmap() {
           scrub: 0.5,
           onUpdate: (self) => {
             const progress = self.progress;
-            // Continuous twisting of DNA helix (0 to 14.5 radians of rotation)
-            setRotation(progress * 14.5);
+            // Smooth slow-spinning twist parameters (0 to 12.8 radians)
+            setRotation(progress * 12.8);
             
             // Mathematically sync active card index directly based on scroll progress (0 to 3)
             const index = Math.min(
@@ -114,25 +114,25 @@ export default function OnboardingRoadmap() {
     { scope: sectionRef }
   );
 
-  // 3. Mathematical DNA configuration (Calculated in real-time for volumetric 3D effect)
-  const N = 36; // Number of base pairs vertically
+  // 3. Mathematical DNA configuration (Calculated for ultra-fine high-density molecular telemetry)
+  const N = 46; // Higher density for highly delicate clinical base pairs
   const basePairs = Array.from({ length: N }).map((_, i) => {
     const y = (i / (N - 1)) * 100; // Vertical position in percent (0 to 100)
     
-    // Twist calculation: angle based on scroll rotation + spatial pitch (i * 0.38)
-    const theta = rotation + (i * 0.38);
+    // Twist calculation: angle based on scroll rotation + spatial pitch (i * 0.35)
+    const theta = rotation + (i * 0.35);
     const sinVal = Math.sin(theta);
     const cosVal = Math.cos(theta);
     
-    // Horizontal positions (Centered at 50% width, wider radius of 32% for visibility)
-    const xLeft = 50 - (32 * sinVal);
-    const xRight = 50 + (32 * sinVal);
+    // Horizontal positions (Centered at 50% width, radius of 30% for high-resolution refinement)
+    const xLeft = 50 - (30 * sinVal);
+    const xRight = 50 + (30 * sinVal);
     
     // 3D Depth Layering calculations (Using cosine value)
     const zDepth = cosVal; // depth coordinate from -1 to 1
-    const opacity = 0.15 + (0.85 * (zDepth + 1) / 2);
-    const strokeWidth = 0.5 + (1.5 * (zDepth + 1) / 2);
-    const nodeRadius = 1.5 + (2.5 * (zDepth + 1) / 2);
+    const opacity = 0.15 + (0.65 * (zDepth + 1) / 2); // Delicate peak opacity of 0.8
+    const strokeWidth = 0.4 + (0.8 * (zDepth + 1) / 2); // Fine stroke width (0.4px to 1.2px)
+    const nodeRadius = 1.0 + (1.5 * (zDepth + 1) / 2); // Small precise nucleotide spheres
     
     // Determine color based on active scroll section (divided into 4 segments)
     const activeStepPos = Math.floor(y / 25);
@@ -180,9 +180,9 @@ export default function OnboardingRoadmap() {
             <svg className="absolute top-0 bottom-0 left-0 right-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
               
               {/* Central Spine vertical guide line */}
-              <line x1="50" y1="0" x2="50" y2="100" stroke="rgba(244, 237, 230, 0.03)" strokeWidth="0.5" strokeDasharray="4 6" />
+              <line x1="50" y1="0" x2="50" y2="100" stroke="rgba(244, 237, 230, 0.02)" strokeWidth="0.5" strokeDasharray="3 5" />
               
-              {/* 1. Continuous Winding Sugar-Phosphate Backbone Strands (Segment-based 3D depth) */}
+              {/* 1. Continuous Winding Sugar-Phosphate Backbone Strands (Faceted segment-based 3D depth) */}
               {basePairs.map((bp, i) => {
                 if (i === N - 1) return null;
                 const nextBp = basePairs[i + 1];
@@ -191,25 +191,23 @@ export default function OnboardingRoadmap() {
                 const avgZLeft = (bp.zDepth + nextBp.zDepth) / 2;
                 const avgZRight = (-bp.zDepth - nextBp.zDepth) / 2; // Right strand is opposite phase
 
-                const opacityLeft = 0.15 + (0.85 * (avgZLeft + 1) / 2);
-                const strokeWidthLeft = 0.75 + (2.5 * (avgZLeft + 1) / 2);
+                const opacityLeft = 0.12 + (0.68 * (avgZLeft + 1) / 2);
+                const strokeWidthLeft = 0.5 + (1.2 * (avgZLeft + 1) / 2); // Highly delicate strand (0.5px to 1.7px)
                 
-                const opacityRight = 0.15 + (0.85 * (avgZRight + 1) / 2);
-                const strokeWidthRight = 0.75 + (2.5 * (avgZRight + 1) / 2);
-
-                const leftColor = bp.isActiveRegion ? "rgba(34, 313, 94, 0.85)" : "rgba(138, 171, 90, 0.7)";
-                const rightColor = bp.isActiveRegion ? "rgba(34, 313, 94, 0.85)" : "rgba(138, 171, 90, 0.7)";
+                const opacityRight = 0.12 + (0.68 * (avgZRight + 1) / 2);
+                const strokeWidthRight = 0.5 + (1.2 * (avgZRight + 1) / 2);
 
                 return (
                   <g key={`backbone-${i}`} className="transition-all duration-300">
-                    {/* Left Strand segment */}
+                    {/* Left Strand segment (Rounded linecaps fuse adjacent segments into seamless organic curves) */}
                     <line
                       x1={bp.xLeft}
                       y1={bp.y}
                       x2={nextBp.xLeft}
                       y2={nextBp.y}
-                      stroke={bp.isActiveRegion ? "#22C55E" : "rgba(138, 171, 90, 0.35)"}
+                      stroke={bp.isActiveRegion ? "#22C55E" : "rgba(138, 171, 90, 0.3)"}
                       strokeWidth={strokeWidthLeft}
+                      strokeLinecap="round"
                       style={{ opacity: opacityLeft }}
                     />
                     {/* Right Strand segment */}
@@ -218,8 +216,9 @@ export default function OnboardingRoadmap() {
                       y1={bp.y}
                       x2={nextBp.xRight}
                       y2={nextBp.y}
-                      stroke={bp.isActiveRegion ? "#22C55E" : "rgba(138, 171, 90, 0.35)"}
+                      stroke={bp.isActiveRegion ? "#22C55E" : "rgba(138, 171, 90, 0.3)"}
                       strokeWidth={strokeWidthRight}
+                      strokeLinecap="round"
                       style={{ opacity: opacityRight }}
                     />
                   </g>
@@ -237,18 +236,18 @@ export default function OnboardingRoadmap() {
                     y1={bp.y} 
                     x2={bp.xRight} 
                     y2={bp.y} 
-                    stroke={bp.isActiveRegion ? "#22C55E" : "rgba(138, 171, 90, 0.25)"} 
-                    strokeWidth={bp.strokeWidth * 2.8}
-                    className="opacity-30 transition-colors duration-300"
+                    stroke={bp.isActiveRegion ? "#22C55E" : "rgba(138, 171, 90, 0.2)"} 
+                    strokeWidth={bp.strokeWidth * 1.6}
+                    className="opacity-25 transition-colors duration-300"
                   />
-                  {/* Core bright stroke */}
+                  {/* Core bright stroke (Fine wire core) */}
                   <line 
                     x1={bp.xLeft} 
                     y1={bp.y} 
                     x2={bp.xRight} 
                     y2={bp.y} 
-                    stroke={bp.isActiveRegion ? "#22C55E" : "rgba(244, 237, 230, 0.55)"} 
-                    strokeWidth={bp.strokeWidth * 0.9}
+                    stroke={bp.isActiveRegion ? "#22C55E" : "rgba(244, 237, 230, 0.45)"} 
+                    strokeWidth={bp.strokeWidth * 0.55}
                     className="transition-colors duration-300"
                   />
 
@@ -257,15 +256,15 @@ export default function OnboardingRoadmap() {
                   <circle 
                     cx={bp.xLeft} 
                     cy={bp.y} 
-                    r={bp.nodeRadius * 1.8} 
+                    r={bp.nodeRadius * 1.5} 
                     fill={bp.isActiveRegion ? "#22C55E" : "#8aab5a"} 
-                    className="opacity-15 transition-colors duration-300"
+                    className="opacity-10 transition-colors duration-300"
                   />
-                  {/* Inner bright core */}
+                  {/* Inner bright core (Sleek molecular dot) */}
                   <circle 
                     cx={bp.xLeft} 
                     cy={bp.y} 
-                    r={bp.nodeRadius * 0.65} 
+                    r={bp.nodeRadius * 0.5} 
                     fill={bp.isActiveRegion ? "#22C55E" : "#F4EDE6"} 
                     className="transition-colors duration-300"
                   />
@@ -275,15 +274,15 @@ export default function OnboardingRoadmap() {
                   <circle 
                     cx={bp.xRight} 
                     cy={bp.y} 
-                    r={bp.nodeRadius * 1.8} 
+                    r={bp.nodeRadius * 1.5} 
                     fill={bp.isActiveRegion ? "#22C55E" : "#8aab5a"} 
-                    className="opacity-15 transition-colors duration-300"
+                    className="opacity-10 transition-colors duration-300"
                   />
                   {/* Inner bright core */}
                   <circle 
                     cx={bp.xRight} 
                     cy={bp.y} 
-                    r={bp.nodeRadius * 0.65} 
+                    r={bp.nodeRadius * 0.5} 
                     fill={bp.isActiveRegion ? "#22C55E" : "#F4EDE6"} 
                     className="transition-colors duration-300"
                   />
@@ -531,6 +530,22 @@ export default function OnboardingRoadmap() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* 🚀 CLINICAL CALL-TO-ACTION (Shared Desktop & Mobile)                     */}
+        {/* ========================================================================= */}
+        <div className="flex justify-center mt-[4em] lg:mt-[5.5em] relative z-10">
+          <a
+            href="#final-cta"
+            className="inline-flex items-center gap-[1em] px-[2.8em] py-[1.25em] bg-[#22C55E] text-[#0D1508] text-14-caps font-bold tracking-widest rounded-full transition-all duration-500 ease-out hover:scale-105 hover:bg-[#F4EDE6] hover:text-[#0D1508] shadow-[0_15px_40px_rgba(34,197,94,0.3)] hover:shadow-[0_20px_50px_rgba(244,237,230,0.12)] active:scale-95 group"
+          >
+            <span className="w-[0.45em] h-[0.45em] rounded-full bg-[#0D1508] group-hover:animate-ping" />
+            START MY CELLULAR BLUEPRINT
+            <svg viewBox="0 0 10 10" className="w-[0.7em] h-[0.7em] fill-none stroke-current stroke-[1.8] transition-transform duration-300 group-hover:translate-x-1.5" aria-hidden="true">
+              <path d="M1 5h8M5 1l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
         </div>
 
       </div>
