@@ -79,11 +79,7 @@ export default function FinalCTA() {
         
         {/* Left Content Column */}
         <div className="flex-1" ref={headRef}>
-          {/* Standardized Editorial Header */}
-          <span className="reveal-up opacity-0 text-[#8aab5a] text-14-caps font-bold tracking-widest block mb-[1.2em]">
-            CLINICAL INTAKE
-          </span>
-          <h2 className="reveal-head text-100-regular text-[#F4EDE6] leading-tight">
+          <h2 className="reveal-head text-100-regular text-[#F4EDE6] leading-tight mt-[1em]">
             <TextSplit text="Unlock Your True" /><br />
             <TextSplit text="Performance" />
           </h2>
@@ -125,7 +121,7 @@ export default function FinalCTA() {
            {/* Image 1: Clinical Coaching/Consultation (Replacing Farm Field) */}
            <div className="relative aspect-[4/5] mt-[6em] shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-[16px] overflow-hidden border border-[#F4EDE6]/5 z-10 group">
              <Image 
-               src="/images/consortium_nutritionist.png" 
+               src="/images/wellness_hexagon_tablet.png" 
                alt="Clinical biometric coaching session" 
                fill 
                sizes="25vw" 
