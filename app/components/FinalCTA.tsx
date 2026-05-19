@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
+import UtopiaButton from "./UtopiaButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -91,15 +92,13 @@ export default function FinalCTA() {
             </p>
             
             <div className="flex flex-wrap gap-[1.5em] items-center">
-              {/* Primary Glowing Capsule CTA */}
-              <a
-                href="#free-assessment"
-                className="inline-flex items-center gap-[0.8em] px-[2.8em] py-[1.25em] bg-[#22C55E] text-[#0D1508] text-14-caps font-bold tracking-widest rounded-full transition-all duration-500 ease-out hover:scale-105 hover:bg-[#F4EDE6] hover:text-[#0D1508] shadow-[0_15px_40px_rgba(34,197,94,0.25)] hover:shadow-[0_20px_50px_rgba(244,237,230,0.12)] active:scale-95 group"
-              >
-                <span className="w-[0.45em] h-[0.45em] rounded-full bg-[#0D1508] group-hover:animate-ping" />
-                APPLY FOR ASSESSMENT
-                <span className="w-[0.45em] h-[0.45em] rounded-full bg-[#0D1508] group-hover:animate-ping" />
-              </a>
+              {/* Primary Glowing Capsule CTA (Utopia Interactive Button) */}
+              <UtopiaButton 
+                href="#free-assessment" 
+                text="APPLY FOR ASSESSMENT" 
+                spinningText="CLINICAL PROTOCOL • INTAKE SCAN • " 
+                theme="dark"
+              />
               
               {/* Secondary Outlined CTA */}
               <a
