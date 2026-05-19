@@ -22,48 +22,61 @@ export default function UtopiaButton({
 }: UtopiaButtonProps) {
   const containerRef = useRef<HTMLAnchorElement>(null);
   const borderRef = useRef<HTMLDivElement>(null);
+  const displacementRef = useRef<SVGFEDisplacementMapElement>(null);
   
-  // A GSAP proxy object to securely animate the CSS custom property without DOM layout thrashing
-  const maskObj = useRef({ spread: 0 });
+  // A GSAP proxy object to securely animate the CSS custom property and SVG scale
+  const maskObj = useRef({ spread: 0, waveScale: 15 });
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const btn = containerRef.current;
     const border = borderRef.current;
-    if (!btn || !border) return;
+    const displacement = displacementRef.current;
+    if (!btn || !border || !displacement) return;
 
-    // 1. Calculate the exact point of mouse entry relative to the button center
+    // 1. Calculate the exact point of mouse entry
     const rect = btn.getBoundingClientRect();
     const mx = e.clientX - rect.left - rect.width / 2;
     const my = e.clientY - rect.top - rect.height / 2;
     
-    // 2. Convert coordinates to a 360-degree angle
-    // CSS conic gradients start 0deg at the top (12 o'clock). Math.atan2 starts 0 at the right (3 o'clock).
-    // So we add 90 degrees to sync the math with the CSS renderer.
+    // 2. Convert to angle
     let angleDeg = (Math.atan2(my, mx) * 180 / Math.PI) + 90;
     if (angleDeg < 0) angleDeg += 360;
 
-    // 3. Set the mask origin to the exact point of mouse entry
     border.style.setProperty('--angle', `${angleDeg}deg`);
     
-    // 4. Animate the two waves growing outward from the entry point
+    // 3. Reset physics
     gsap.killTweensOf(maskObj.current);
     maskObj.current.spread = 0;
+    maskObj.current.waveScale = 15; // Start with a very visible wave distortion
+    displacement.setAttribute('scale', '15');
     
+    // 4. Animate the two waves growing outward (Slower as requested)
     gsap.to(maskObj.current, {
-      spread: 180, // A 180-degree spread in both directions reveals the full 360-degree perimeter!
-      duration: 0.8,
-      ease: "power2.out", // Accelerates fast, then crashes smoothly together on the opposite side
+      spread: 180, 
+      duration: 1.5, // Slowed down
+      ease: "power2.out",
       onUpdate: () => {
         border.style.setProperty('--spread', `${maskObj.current.spread}deg`);
+      }
+    });
+
+    // 5. Smoothly reduce the waviness to 0 so the final border is perfectly smooth
+    gsap.to(maskObj.current, {
+      waveScale: 0,
+      duration: 1.5,
+      ease: "power2.in", // Stays wavy for a while, then quickly smooths out at the end
+      onUpdate: () => {
+        displacement.setAttribute('scale', maskObj.current.waveScale.toString());
       }
     });
   };
 
   const handleMouseLeave = () => {
     const border = borderRef.current;
+    const displacement = displacementRef.current;
     if (!border) return;
 
-    // Reverse the waves so they smoothly shrink back to the entry point
+    // Fast reverse to 0 spread without making it wavy again
     gsap.to(maskObj.current, {
       spread: 0,
       duration: 0.5,
@@ -84,7 +97,6 @@ export default function UtopiaButton({
   const hoverBadgeBg = theme === "dark" ? "group-hover:bg-[#22C55E]" : "group-hover:bg-[#8aab5a]";
   const hoverBadgeText = theme === "dark" ? "group-hover:text-[#0D1508]" : "group-hover:text-[#F4EDE6]";
 
-  // Unique ID for the SVG path to avoid conflicts
   const pathId = `circlePath-${text.replace(/\s+/g, '')}`;
 
   return (
@@ -94,9 +106,9 @@ export default function UtopiaButton({
         <defs>
           <filter id="liquid-tips">
             {/* 1. Create a noise pattern to distort the straight line into a wavy path */}
-            <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" result="noise" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.03 0.03" numOctaves="1" result="noise" />
             {/* 2. Displace the border using the noise to make it physically wave up and down */}
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+            <feDisplacementMap ref={displacementRef} in="SourceGraphic" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G" result="displaced" />
             
             {/* 3. Blur and alpha-crush to maintain the thick, liquid rounded tips while it waves */}
             <feGaussianBlur in="displaced" stdDeviation="3" result="blur" />
