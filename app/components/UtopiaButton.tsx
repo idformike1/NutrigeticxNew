@@ -89,12 +89,17 @@ export default function UtopiaButton({
 
   return (
     <>
-      {/* Invisible SVG Filter for the "Liquid Tips" Effect */}
+      {/* Invisible SVG Filter for the "Liquid Tips" & "Wavy Path" Effect */}
       <svg className="absolute w-0 h-0 pointer-events-none hidden" aria-hidden="true">
         <defs>
           <filter id="liquid-tips">
-            {/* The mask edge is sharp. We blur it and crush the alpha to create rounded, gooey water droplet tips as the waves travel! */}
-            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+            {/* 1. Create a noise pattern to distort the straight line into a wavy path */}
+            <feTurbulence type="fractalNoise" baseFrequency="0.05 0.05" numOctaves="1" result="noise" />
+            {/* 2. Displace the border using the noise to make it physically wave up and down */}
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+            
+            {/* 3. Blur and alpha-crush to maintain the thick, liquid rounded tips while it waves */}
+            <feGaussianBlur in="displaced" stdDeviation="3" result="blur" />
             <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="gooey" />
           </filter>
         </defs>
