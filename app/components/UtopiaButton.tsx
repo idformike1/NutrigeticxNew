@@ -29,18 +29,51 @@ export default function UtopiaButton({
     const follower = followerRef.current;
     if (!btn || !follower) return;
 
-    // We use GSAP quickTo for highly performant, fluid mouse tracking without React state lag
-    const xTo = gsap.quickTo(follower, "x", { duration: 0.6, ease: "power3.out" });
-    const yTo = gsap.quickTo(follower, "y", { duration: 0.6, ease: "power3.out" });
+    // We use GSAP quickTo for highly performant, fluid edge tracking
+    const xTo = gsap.quickTo(follower, "x", { duration: 0.4, ease: "power2.out" });
+    const yTo = gsap.quickTo(follower, "y", { duration: 0.4, ease: "power2.out" });
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = btn.getBoundingClientRect();
-      // Calculate mouse position relative to the exact center of the button
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
       
-      xTo(x);
-      yTo(y);
+      // Mouse position relative to the exact center of the button
+      const mx = e.clientX - rect.left - rect.width / 2;
+      const my = e.clientY - rect.top - rect.height / 2;
+      
+      // 📐 PERIMETER CONSTRAINT MATH (Pill Shape)
+      // This mathematically locks the wavy blob to the outer edge of the button,
+      // preventing it from sinking into the center and ensuring a constant "bulge".
+      let targetX, targetY;
+      const R = rect.height / 2; // Radius of the button's rounded edges
+      const innerWidth = Math.max(0, rect.width - rect.height) / 2; // Distance from center to the core circle centers
+
+      if (mx < -innerWidth) {
+        // Mouse is on the left side: Constrain to the left semi-circle
+        const cx = -innerWidth;
+        const cy = 0;
+        const dx = mx - cx;
+        const dy = my - cy;
+        const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+        targetX = cx + (dx / dist) * R;
+        targetY = cy + (dy / dist) * R;
+      } else if (mx > innerWidth) {
+        // Mouse is on the right side: Constrain to the right semi-circle
+        const cx = innerWidth;
+        const cy = 0;
+        const dx = mx - cx;
+        const dy = my - cy;
+        const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+        targetX = cx + (dx / dist) * R;
+        targetY = cy + (dy / dist) * R;
+      } else {
+        // Mouse is in the middle: Constrain to the flat top or bottom edge
+        targetX = mx;
+        targetY = my > 0 ? R : -R;
+      }
+      
+      // Animate the blob to slide along the perimeter tracks
+      xTo(targetX);
+      yTo(targetY);
     };
 
     btn.addEventListener("mousemove", handleMouseMove);
@@ -53,15 +86,6 @@ export default function UtopiaButton({
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => {
     setIsHovered(false);
-    // Smoothly snap the follower back to the center of the button when the mouse leaves
-    if (followerRef.current) {
-      gsap.to(followerRef.current, {
-        x: 0,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out",
-      });
-    }
   };
 
   // Theme styles
