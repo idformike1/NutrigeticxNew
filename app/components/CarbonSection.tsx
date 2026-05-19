@@ -49,20 +49,21 @@ export default function CarbonSection() {
         );
       }
 
-      // 3. Simple fade-in for paragraph
-      const para = containerRef.current?.querySelector(".reveal-para");
-      if (para) {
+      // 3. Simple fade-in for paragraph and button
+      const reveals = containerRef.current?.querySelectorAll(".reveal-up");
+      if (reveals) {
         gsap.fromTo(
-          para,
+          reveals,
           { opacity: 0, y: "1em" },
           {
             opacity: 1,
             y: 0,
             duration: 0.8,
+            stagger: 0.15,
             ease: "power3.out",
             scrollTrigger: {
-              trigger: para,
-              start: "top 90%",
+              trigger: containerRef.current,
+              start: "top 85%",
             },
           }
         );
@@ -78,36 +79,52 @@ export default function CarbonSection() {
     <section ref={containerRef} id="s-carbon" className="relative z-10 bg-[#F4EDE6] overflow-hidden">
       <div className="w-full py-[var(--section-padding)] px-[var(--padding-web)]">
         <div className="grid md:grid-cols-2 gap-[5em] lg:gap-[8em] items-center">
+          
           {/* Content */}
-          <div ref={contentRef}>
-            <h2 className="reveal-head text-60-regular text-[#2e3a1f] mb-[1.5em]">
-              <TextSplit text="Pure Bio-efficacy — Without the Chemical Burden" />
+          <div ref={contentRef} className="max-w-[36em]">
+            <span className="reveal-up opacity-0 text-[#8aab5a] text-14-caps font-bold tracking-widest block mb-[1.2em]">
+              PURITY STANDARDS
+            </span>
+            <h2 className="reveal-head text-60-regular text-[#2e3a1f] leading-tight">
+              <TextSplit text="Pure Bio-Efficacy." /><br />
+              <TextSplit text="Zero Chemical Burden." />
             </h2>
-            <p className="reveal-para opacity-0 text-16-regular-caps text-[#2e3a1f]/60 mb-[3em] max-w-[28em]">
-              Most wellness brands hide behind complex synthetic binders and industrial artificial coloring.
+            <div className="reveal-up opacity-0 w-[6em] h-[2px] bg-[#2e3a1f]/15 mt-[2em] mb-[2em]" />
+            
+            <p className="reveal-up opacity-0 text-16-regular-caps text-[#2e3a1f]/70 mb-[3em] leading-relaxed">
+              Most wellness brands hide behind complex synthetic binders, industrial artificial coloring, and low-absorption molecular structures.
               <br /><br />
-              With Nutrigetic, you experience absolute purity. Our formulas are cold-encapsulated from raw organic extracts — ensuring maximum natural absorption with zero synthetic fillers, heavy metals, or biological compromise.
+              With Nutrigetic, you experience absolute purity. Our formulas are cold-encapsulated from raw organic extracts — ensuring maximum natural bioavailability with zero synthetic fillers, heavy metals, or biological compromise.
             </p>
+            
             <a
               href="#about"
-              className="inline-flex items-center gap-[0.75em] px-[2em] py-[1em] border border-[#2e3a1f]/20 text-[#2e3a1f] text-14-caps w-fit transition-all duration-300 hover:bg-[#2e3a1f] hover:text-[#F4EDE6]"
+              className="reveal-up opacity-0 inline-flex items-center gap-[0.75em] px-[2.8em] py-[1.25em] bg-[#2e3a1f] text-[#F4EDE6] text-14-caps font-bold tracking-widest rounded-full transition-all duration-500 ease-out hover:scale-105 hover:bg-[#8aab5a] hover:text-[#0D1508] shadow-[0_10px_30px_rgba(46,58,31,0.15)] hover:shadow-[0_15px_40px_rgba(138,171,90,0.3)] active:scale-95 group"
             >
-              <span className="w-[0.375em] h-[0.375em] rounded-full bg-current" />
-              learn more
-              <span className="w-[0.375em] h-[0.375em] rounded-full bg-current" />
+              <span className="w-[0.4em] h-[0.4em] rounded-full bg-[#22C55E] group-hover:bg-[#0D1508] transition-colors duration-300 animate-pulse" />
+              VIEW EXTRACTION PROTOCOL
             </a>
           </div>
 
-          {/* Parallax Image */}
-          <div ref={imageRef} className="relative h-[31.25em] md:h-[37.5em] overflow-hidden">
+          {/* Parallax Image Upgrade */}
+          <div ref={imageRef} className="relative h-[35em] md:h-[42em] overflow-hidden rounded-[16px] border border-[#2e3a1f]/10 shadow-[0_20px_50px_rgba(46,58,31,0.08)] group">
             <Image
-              src="/images/68bdf00d8fb03044e2d3834d_field_img_(1).avif"
-              alt="Biometric performance tracking"
+              src="/images/nutrigetic_absorption_bg.png"
+              alt="High-performance biometric telemetry and cold-extraction absorption"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
+              className="object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
             />
+            {/* Clinical overlay gradient for depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0D1508]/30 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-40" />
+            
+            {/* Absolute Glassmorphic Tag */}
+            <div className="absolute bottom-[2em] right-[2em] bg-[#F4EDE6]/90 backdrop-blur-md border border-[#2e3a1f]/10 px-[1.2em] py-[0.8em] rounded-full shadow-lg flex items-center gap-[0.6em] transform transition-transform duration-500 group-hover:-translate-y-1">
+               <span className="w-[0.45em] h-[0.45em] rounded-full bg-[#22C55E] animate-pulse" />
+               <span className="text-[0.65rem] text-[#2e3a1f] tracking-[0.15em] font-bold font-mono">COLD-ENCAPSULATED</span>
+            </div>
           </div>
+          
         </div>
       </div>
     </section>
