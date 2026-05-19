@@ -102,16 +102,19 @@ export default function UtopiaButton({
   return (
     <>
       {/* Invisible SVG Filter for the "Liquid Tips" & "Wavy Path" Effect */}
+      {/* Added large x/y/width/height to prevent the displaced wave from being clipped by the bounding box! */}
       <svg className="absolute w-0 h-0 pointer-events-none hidden" aria-hidden="true">
         <defs>
-          <filter id="liquid-tips">
+          <filter id="liquid-tips" x="-50%" y="-50%" width="200%" height="200%">
             {/* 1. Create a noise pattern to distort the straight line into a wavy path */}
-            <feTurbulence type="fractalNoise" baseFrequency="0.03 0.03" numOctaves="1" result="noise" />
+            {/* Using a higher baseFrequency makes the waves tighter and more noticeable */}
+            <feTurbulence type="fractalNoise" baseFrequency="0.08 0.08" numOctaves="1" result="noise" />
             {/* 2. Displace the border using the noise to make it physically wave up and down */}
             <feDisplacementMap ref={displacementRef} in="SourceGraphic" in2="noise" scale="15" xChannelSelector="R" yChannelSelector="G" result="displaced" />
             
             {/* 3. Blur and alpha-crush to maintain the thick, liquid rounded tips while it waves */}
-            <feGaussianBlur in="displaced" stdDeviation="3" result="blur" />
+            {/* Reduced stdDeviation from 3 to 1.5 so the thin line doesn't disappear! */}
+            <feGaussianBlur in="displaced" stdDeviation="1.5" result="blur" />
             <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="gooey" />
           </filter>
         </defs>
@@ -129,18 +132,15 @@ export default function UtopiaButton({
         <div className={`absolute top-0 bottom-0 left-0 right-0 ${mainBg} rounded-full z-0 transition-shadow duration-500 shadow-[0_15px_40px_rgba(0,0,0,0.15)] group-hover:shadow-[0_20px_50px_rgba(34,197,94,0.3)]`} />
 
         {/* Layer 1: The Liquid Wave Border Element */}
+        {/* Adjusted inset to prevent cropping */}
         <div 
-          className="absolute -inset-[0.5em] pointer-events-none z-10"
+          className="absolute -inset-[1em] pointer-events-none z-10"
           style={{ filter: "url(#liquid-tips)" }}
         >
-          {/* 
-            This div uses the magic GSAP conic-gradient mask.
-            The solid border is slowly revealed starting from the exact angle of mouse entry,
-            splitting into two waves that travel around the perimeter and crash into each other!
-          */}
+          {/* Increased border thickness from 0.25em to 0.4em so the line survives the blur/alpha crush! */}
           <div 
             ref={borderRef}
-            className={`absolute top-[0.5em] bottom-[0.5em] left-[0.5em] right-[0.5em] border-[0.25em] ${borderWaveColor} rounded-full`}
+            className={`absolute top-[1em] bottom-[1em] left-[1em] right-[1em] border-[0.4em] ${borderWaveColor} rounded-full`}
             style={{
               maskImage: "conic-gradient(from calc(var(--angle) - var(--spread)) at 50% 50%, black calc(var(--spread) * 2), transparent 0)",
               WebkitMaskImage: "conic-gradient(from calc(var(--angle) - var(--spread)) at 50% 50%, black calc(var(--spread) * 2), transparent 0)",
