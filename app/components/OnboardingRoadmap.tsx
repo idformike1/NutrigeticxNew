@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
+import UtopiaButton from "./UtopiaButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -536,16 +537,12 @@ export default function OnboardingRoadmap() {
         {/* 🚀 CLINICAL CALL-TO-ACTION (Shared Desktop & Mobile)                     */}
         {/* ========================================================================= */}
         <div className="flex justify-center mt-[4em] lg:mt-[5.5em] relative z-10">
-          <a
-            href="#final-cta"
-            className="inline-flex items-center gap-[1em] px-[2.8em] py-[1.25em] bg-[#22C55E] text-[#0D1508] text-14-caps font-bold tracking-widest rounded-full transition-all duration-500 ease-out hover:scale-105 hover:bg-[#F4EDE6] hover:text-[#0D1508] shadow-[0_15px_40px_rgba(34,197,94,0.3)] hover:shadow-[0_20px_50px_rgba(244,237,230,0.12)] active:scale-95 group"
-          >
-            <span className="w-[0.45em] h-[0.45em] rounded-full bg-[#0D1508] group-hover:animate-ping" />
-            START MY CELLULAR BLUEPRINT
-            <svg viewBox="0 0 10 10" className="w-[0.7em] h-[0.7em] fill-none stroke-current stroke-[1.8] transition-transform duration-300 group-hover:translate-x-1.5" aria-hidden="true">
-              <path d="M1 5h8M5 1l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
+          <UtopiaButton 
+            href="#final-cta" 
+            text="APPLY FOR ASSESSMENT" 
+            spinningText="CELLULAR BLUEPRINT • CLINICAL SCAN • " 
+            theme="dark"
+          />
         </div>
 
       </div>
