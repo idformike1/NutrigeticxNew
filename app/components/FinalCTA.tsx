@@ -7,7 +7,6 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
 import UtopiaButton from "./UtopiaButton";
-import FluidButton from "./FluidButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,6 +70,7 @@ export default function FinalCTA() {
           alt="Biometric performance dashboard"
           fill
           sizes="100vw"
+          priority
           className="object-cover object-center opacity-30 mix-blend-lighten"
         />
         {/* Deep gradient fade to blend the panoramic image seamlessly into the background */}
@@ -101,11 +101,13 @@ export default function FinalCTA() {
                 theme="dark"
               />
               
-              {/* Secondary Outlined CTA (Fluid Edge Wavy Button) */}
-              <FluidButton 
-                href="#contact-us" 
-                text="Talk to a biometric coach" 
-              />
+              {/* Secondary Outlined CTA */}
+              <a
+                href="#contact-us"
+                className="inline-flex items-center gap-[0.75em] px-[2.5em] py-[1.2em] border border-[#F4EDE6]/20 text-[#F4EDE6] text-14-caps font-bold tracking-widest rounded-full transition-colors duration-300 hover:bg-[#F4EDE6]/10 hover:border-[#F4EDE6]/40"
+              >
+                Talk to a biometric coach
+              </a>
             </div>
           </div>
         </div>

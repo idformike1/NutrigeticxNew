@@ -20,7 +20,7 @@ const communityItems = [
     name: "Dr. Aris Thorne",
     role: "LONGEVITY RESEARCHER",
     metric: "REM SLEEP +35%",
-    image: "/images/consortium_nutritionist.png", // Doctor / Lab
+    image: "/images/nutrigetic_consortium.png", // Doctor / Lab
   },
   {
     quote: "We are seeing unprecedented lactic clearance rates and cellular metabolic efficiency in our high-altitude testing cohorts.",

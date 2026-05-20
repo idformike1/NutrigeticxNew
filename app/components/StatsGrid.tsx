@@ -120,7 +120,9 @@ export default function StatsGrid() {
           <div className="relative aspect-[4/5] lg:aspect-[1/1.2] overflow-hidden rounded-[16px] border border-[#2e3a1f]/10 shadow-[0_15px_40px_rgba(46,58,31,0.06)] group/image">
              <img 
                src="/images/wellness_hero_tablet.png" 
-               alt="Nutrigetic biomarker telemetry analytics dashboard" 
+               alt="Nutrigetic biomarker telemetry analytics dashboard"
+               loading="eager"
+               fetchPriority="high"
                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/image:scale-102"
              />
              

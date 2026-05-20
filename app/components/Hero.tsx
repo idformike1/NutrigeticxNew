@@ -75,6 +75,21 @@ export default function Hero() {
         });
       }
 
+      // 3. Hide the fixed tablet after the second section overlaps it 
+      // to ensure it doesn't persist into the footer's z-0 context.
+      if (tabletRef.current) {
+        gsap.to(tabletRef.current, {
+          opacity: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroRef.current,
+            start: "bottom top", // Starts fading once the hero section is fully scrolled out of view
+            end: "bottom -50%",
+            scrub: true,
+          },
+        });
+      }
+
       // Cleanup
       return () => {
       };
@@ -90,7 +105,7 @@ export default function Hero() {
           src="/images/68cc66c2b616f1163c0b70ec_fm_Mobile.avif"
           alt=""
           fill
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, 0vw"
           className="object-cover object-center md:hidden"
           priority
         />
@@ -98,7 +113,7 @@ export default function Hero() {
           src="/images/68c2a5d546bf825d7fca94d4_ezgif-6a9414d8402168.avif"
           alt=""
           fill
-          sizes="100vw"
+          sizes="(min-width: 769px) 100vw, 0vw"
           className="object-cover object-top hidden md:block"
           priority
         />

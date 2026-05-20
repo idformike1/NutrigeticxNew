@@ -118,7 +118,7 @@ export default function OnboardingRoadmap() {
   // 3. Mathematical DNA configuration (Calculated for ultra-fine high-density molecular telemetry)
   const N = 46; // Higher density for highly delicate clinical base pairs
   const basePairs = Array.from({ length: N }).map((_, i) => {
-    const y = (i / (N - 1)) * 100; // Vertical position in percent (0 to 100)
+    const y = Number(((i / (N - 1)) * 100).toFixed(4)); // Vertical position in percent (0 to 100)
     
     // Twist calculation: angle based on scroll rotation + spatial pitch (i * 0.35)
     const theta = rotation + (i * 0.35);
@@ -126,14 +126,14 @@ export default function OnboardingRoadmap() {
     const cosVal = Math.cos(theta);
     
     // Horizontal positions (Centered at 50% width, radius of 30% for high-resolution refinement)
-    const xLeft = 50 - (30 * sinVal);
-    const xRight = 50 + (30 * sinVal);
+    const xLeft = Number((50 - (30 * sinVal)).toFixed(4));
+    const xRight = Number((50 + (30 * sinVal)).toFixed(4));
     
     // 3D Depth Layering calculations (Using cosine value)
-    const zDepth = cosVal; // depth coordinate from -1 to 1
-    const opacity = 0.15 + (0.65 * (zDepth + 1) / 2); // Delicate peak opacity of 0.8
-    const strokeWidth = 0.4 + (0.8 * (zDepth + 1) / 2); // Fine stroke width (0.4px to 1.2px)
-    const nodeRadius = 1.0 + (1.5 * (zDepth + 1) / 2); // Small precise nucleotide spheres
+    const zDepth = Number(cosVal.toFixed(4)); // depth coordinate from -1 to 1
+    const opacity = Number((0.15 + (0.65 * (zDepth + 1) / 2)).toFixed(4)); // Delicate peak opacity of 0.8
+    const strokeWidth = Number((0.4 + (0.8 * (zDepth + 1) / 2)).toFixed(4)); // Fine stroke width (0.4px to 1.2px)
+    const nodeRadius = Number((1.0 + (1.5 * (zDepth + 1) / 2)).toFixed(4)); // Small precise nucleotide spheres
     
     // Determine color based on active scroll section (divided into 4 segments)
     const activeStepPos = Math.floor(y / 25);
@@ -192,11 +192,11 @@ export default function OnboardingRoadmap() {
                 const avgZLeft = (bp.zDepth + nextBp.zDepth) / 2;
                 const avgZRight = (-bp.zDepth - nextBp.zDepth) / 2; // Right strand is opposite phase
 
-                const opacityLeft = 0.12 + (0.68 * (avgZLeft + 1) / 2);
-                const strokeWidthLeft = 0.5 + (1.2 * (avgZLeft + 1) / 2); // Highly delicate strand (0.5px to 1.7px)
+                const opacityLeft = Number((0.12 + (0.68 * (avgZLeft + 1) / 2)).toFixed(4));
+                const strokeWidthLeft = Number((0.5 + (1.2 * (avgZLeft + 1) / 2)).toFixed(4)); // Highly delicate strand (0.5px to 1.7px)
                 
-                const opacityRight = 0.12 + (0.68 * (avgZRight + 1) / 2);
-                const strokeWidthRight = 0.5 + (1.2 * (avgZRight + 1) / 2);
+                const opacityRight = Number((0.12 + (0.68 * (avgZRight + 1) / 2)).toFixed(4));
+                const strokeWidthRight = Number((0.5 + (1.2 * (avgZRight + 1) / 2)).toFixed(4));
 
                 return (
                   <g key={`backbone-${i}`} className="transition-all duration-300">
@@ -238,7 +238,7 @@ export default function OnboardingRoadmap() {
                     x2={bp.xRight} 
                     y2={bp.y} 
                     stroke={bp.isActiveRegion ? "#22C55E" : "rgba(138, 171, 90, 0.2)"} 
-                    strokeWidth={bp.strokeWidth * 1.6}
+                    strokeWidth={Number((bp.strokeWidth * 1.6).toFixed(4))}
                     className="opacity-25 transition-colors duration-300"
                   />
                   {/* Core bright stroke (Fine wire core) */}
@@ -248,7 +248,7 @@ export default function OnboardingRoadmap() {
                     x2={bp.xRight} 
                     y2={bp.y} 
                     stroke={bp.isActiveRegion ? "#22C55E" : "rgba(244, 237, 230, 0.45)"} 
-                    strokeWidth={bp.strokeWidth * 0.55}
+                    strokeWidth={Number((bp.strokeWidth * 0.55).toFixed(4))}
                     className="transition-colors duration-300"
                   />
 
@@ -257,7 +257,7 @@ export default function OnboardingRoadmap() {
                   <circle 
                     cx={bp.xLeft} 
                     cy={bp.y} 
-                    r={bp.nodeRadius * 1.5} 
+                    r={Number((bp.nodeRadius * 1.5).toFixed(4))} 
                     fill={bp.isActiveRegion ? "#22C55E" : "#8aab5a"} 
                     className="opacity-10 transition-colors duration-300"
                   />
@@ -265,7 +265,7 @@ export default function OnboardingRoadmap() {
                   <circle 
                     cx={bp.xLeft} 
                     cy={bp.y} 
-                    r={bp.nodeRadius * 0.5} 
+                    r={Number((bp.nodeRadius * 0.5).toFixed(4))} 
                     fill={bp.isActiveRegion ? "#22C55E" : "#F4EDE6"} 
                     className="transition-colors duration-300"
                   />
@@ -275,7 +275,7 @@ export default function OnboardingRoadmap() {
                   <circle 
                     cx={bp.xRight} 
                     cy={bp.y} 
-                    r={bp.nodeRadius * 1.5} 
+                    r={Number((bp.nodeRadius * 1.5).toFixed(4))} 
                     fill={bp.isActiveRegion ? "#22C55E" : "#8aab5a"} 
                     className="opacity-10 transition-colors duration-300"
                   />
@@ -283,7 +283,7 @@ export default function OnboardingRoadmap() {
                   <circle 
                     cx={bp.xRight} 
                     cy={bp.y} 
-                    r={bp.nodeRadius * 0.5} 
+                    r={Number((bp.nodeRadius * 0.5).toFixed(4))} 
                     fill={bp.isActiveRegion ? "#22C55E" : "#F4EDE6"} 
                     className="transition-colors duration-300"
                   />
