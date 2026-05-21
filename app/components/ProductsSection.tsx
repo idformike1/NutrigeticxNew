@@ -7,6 +7,8 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const products = [
   {
     id: "nutritab",
@@ -89,28 +91,52 @@ export default function ProductsSection() {
 
       // 2. Grid items stagger reveal
       const productCards = gridRef.current?.querySelectorAll(".product-card");
+      let mm = gsap.matchMedia();
+      
       if (productCards && gridRef.current) {
-        gsap.fromTo(
-          productCards,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.15,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: gridRef.current,
-              start: "top 80%",
-              once: true,
-            },
-          }
-        );
+        mm.add("(min-width: 768px)", () => {
+          gsap.fromTo(
+            productCards,
+            { opacity: 0, y: 40 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.15,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: gridRef.current,
+                start: "top 80%",
+                once: true,
+              },
+            }
+          );
+        });
+
+        mm.add("(max-width: 767px)", () => {
+          productCards.forEach((card) => {
+            gsap.fromTo(
+              card,
+              { opacity: 0, y: 40 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top 85%",
+                  once: true,
+                },
+              }
+            );
+          });
+        });
       }
 
       return () => {
-      };
-    },
+        mm.revert();
+      };    },
     { scope: containerRef }
   );
 
@@ -137,8 +163,7 @@ export default function ProductsSection() {
               key={product.id}
               id={`product-${product.id}`}
               href={product.href}
-              className="product-card opacity-0 relative block overflow-hidden group rounded-[24px] border border-[#2e3a1f]/10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:border-[#22C55E]/40 hover:shadow-[0_20px_50px_rgba(34,197,94,0.15)] transition-all duration-500"
-              style={{ minHeight: "32em" }}
+              className="product-card opacity-0 relative block overflow-hidden group rounded-[24px] border border-[#2e3a1f]/10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:border-[#22C55E]/40 hover:shadow-[0_20px_50px_rgba(34,197,94,0.15)] transition-all duration-500 min-h-[22em] md:min-h-[32em]"
             >
               {/* Dark Clinical Background */}
               <div
@@ -167,8 +192,7 @@ export default function ProductsSection() {
               </div>
 
               {/* Card Content */}
-              <div className="relative z-10 p-[2.5em] flex flex-col justify-between h-full" style={{ minHeight: "32em" }}>
-                
+              <div className="relative z-10 p-[1.8em] md:p-[2.5em] flex flex-col justify-between h-full min-h-[22em] md:min-h-[32em]">
                 {/* Top: Branding & Floating Bio-Data Tag */}
                 <div className="flex justify-between items-start gap-[1em]">
                   <p className="text-[0.65rem] text-[#F4EDE6]/40 tracking-widest font-bold uppercase mt-[0.5em]">Nutrigetic</p>

@@ -413,10 +413,9 @@ export default function NutritionPillars() {
 
       {/* ========================================================================= */}
       {/* 📱 MOBILE RESPONSIVE EDITORIAL FLOW (block md:hidden)                   */}
-      {/* ========================================================================= */}
-      <div className="block md:hidden w-full py-[5em] px-[var(--padding-web)]">
+      <div className="block md:hidden w-full pt-[4em] pb-[12em] px-[var(--padding-web)]">
         
-        {/* Editorial Header (Perfect & untouched) */}
+        {/* Editorial Header */}
         <div className="max-w-[36em] mb-[3.5em]">
           <span className="text-[#8aab5a] text-14-caps font-bold tracking-widest block mb-[1.2em]">
             OUR SYSTEM METHODOLOGY
@@ -427,27 +426,16 @@ export default function NutritionPillars() {
           <div className="w-[6em] h-[2px] bg-[#2e3a1f]/10 mt-[2em]" />
         </div>
 
-        {/* Compact Center Telemetry Shield for Mobile */}
-        <div className="w-full flex items-center justify-center mb-[4em] select-none">
-          <div className="relative w-[15em] h-[15em] rounded-full border border-[#2e3a1f]/10 bg-[#EDE5DB]/35 flex items-center justify-center p-[1em] shadow-[inset_0_4px_16px_rgba(46,58,31,0.02)]">
-            <svg className="absolute w-[98%] h-[98%] animate-spin-slow opacity-25" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="47" fill="none" stroke="#2e3a1f" strokeWidth="0.5" strokeDasharray="3 4 8 2" />
-            </svg>
-            <svg className="w-[80%] h-[80%]" viewBox="0 0 100 100">
-              <ellipse cx="50" cy="50" rx="30" ry="12" fill="none" stroke="#2e3a1f" strokeWidth="0.5" transform="rotate(30 50 50)" strokeDasharray="15 3" className="animate-spin-slow" />
-              <ellipse cx="50" cy="50" rx="30" ry="12" fill="none" stroke="#2e3a1f" strokeWidth="0.5" transform="rotate(-30 50 50)" strokeDasharray="10 4" className="animate-spin-reverse-slow" />
-              <circle cx="50" cy="50" r="12" fill="none" stroke="#22C55E" strokeWidth="0.75" strokeDasharray="2 2" className="animate-pulse" />
-              <circle cx="50" cy="50" r="1.5" fill="#22C55E" />
-            </svg>
-          </div>
-        </div>
-
-        {/* Natural Vertical List of Cards */}
-        <div className="flex flex-col gap-[2.5em]">
-          {capsuleCards.map((card) => (
+        {/* Natural Vertical List of Cards with Sticky Stacking */}
+        <div className="flex flex-col gap-[2em] relative">
+          {capsuleCards.map((card, index) => (
             <div
               key={card.id}
-              className="bg-[#EDE5DB]/95 border border-[#2e3a1f]/10 p-[2.2em] rounded-[20px] flex flex-col justify-between shadow-[0_10px_30px_rgba(46,58,31,0.02)]"
+              className="sticky bg-[#EDE5DB]/95 border border-[#2e3a1f]/10 p-[2.2em] rounded-[24px] flex flex-col justify-between shadow-[0_-10px_35px_rgba(46,58,31,0.06)] min-h-[22em]"
+              style={{
+                top: `calc(4.5em + ${index * 1.8}em)`,
+                zIndex: index + 1,
+              }}
             >
               <div className="flex justify-between items-start mb-[1.2em]">
                 <div className="flex items-center">
@@ -458,27 +446,28 @@ export default function NutritionPillars() {
                   {card.num}
                 </span>
               </div>
-              <div>
-                <h3 className="text-[1.6rem] font-light text-[#2e3a1f] mb-[0.6em] leading-tight">{card.title}</h3>
-                <p className="text-[0.95rem] text-[#2e3a1f]/75 leading-relaxed font-light mb-[1.8em]">{card.description}</p>
-              </div>
-              <div className="border-t border-[#2e3a1f]/10 pt-[1.2em] mt-auto">
-                <p className="text-[0.6rem] text-[#2e3a1f]/40 tracking-[0.2em] font-bold mb-[0.8em]">SYSTEM FEATURES</p>
-                <ul className="flex flex-col gap-[0.4em]">
-                  {card.features.map((feature, i) => (
-                    <li key={i} className="flex items-center text-[0.78rem] text-[#2e3a1f]/80 font-medium">
-                      <span className="text-[#22C55E] mr-[0.6em] font-mono text-[0.6rem]">✦</span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+              
+              <div className="flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-[1.6rem] font-light text-[#2e3a1f] mb-[0.6em] leading-tight">{card.title}</h3>
+                  <p className="text-[0.95rem] text-[#2e3a1f]/75 leading-relaxed font-light mb-[1.8em]">{card.description}</p>
+                </div>
+                <div className="border-t border-[#2e3a1f]/10 pt-[1.2em] mt-auto">
+                  <p className="text-[0.6rem] text-[#2e3a1f]/40 tracking-[0.2em] font-bold mb-[0.8em]">SYSTEM FEATURES</p>
+                  <ul className="flex flex-col gap-[0.4em]">
+                    {card.features.map((feature, i) => (
+                      <li key={i} className="flex items-center text-[0.78rem] text-[#2e3a1f]/80 font-medium">
+                        <span className="text-[#22C55E] mr-[0.6em] font-mono text-[0.6rem]">✦</span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           ))}
         </div>
-
       </div>
-
     </section>
   );
 }

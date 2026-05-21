@@ -89,14 +89,13 @@ export default function UtopiaButton({
 
   // Theme styles
   const mainBg = theme === "dark" ? "bg-[#0D1508]" : "bg-[#F4EDE6]";
-  const borderWaveColor = theme === "dark" ? "border-[#22C55E]" : "border-[#8aab5a]";
+  const borderWaveColor = theme === "dark" ? "border-[#8aab5a]" : "border-[#2e3a1f]";
   const textColor = theme === "dark" ? "text-[#F4EDE6]" : "text-[#2e3a1f]";
   const badgeBg = theme === "dark" ? "bg-[#F4EDE6]" : "bg-[#2e3a1f]";
   const badgeText = theme === "dark" ? "text-[#0D1508]" : "text-[#F4EDE6]";
   
-  const hoverBadgeBg = theme === "dark" ? "group-hover:bg-[#22C55E]" : "group-hover:bg-[#8aab5a]";
+  const hoverBadgeBg = theme === "dark" ? "group-hover:bg-[#8aab5a]" : "group-hover:bg-[#2e3a1f]";
   const hoverBadgeText = theme === "dark" ? "group-hover:text-[#0D1508]" : "group-hover:text-[#F4EDE6]";
-
   const pathId = `circlePath-${text.replace(/\s+/g, '')}`;
 
   return (
@@ -129,7 +128,11 @@ export default function UtopiaButton({
       >
         
         {/* Layer 0: The Base Dark Button */}
-        <div className={`absolute top-0 bottom-0 left-0 right-0 ${mainBg} rounded-full z-0 transition-shadow duration-500 shadow-[0_15px_40px_rgba(0,0,0,0.15)] group-hover:shadow-[0_20px_50px_rgba(34,197,94,0.3)]`} />
+        <div className={`absolute top-0 bottom-0 left-0 right-0 ${mainBg} rounded-full z-0 transition-shadow duration-500 shadow-[0_15px_40px_rgba(0,0,0,0.15)] ${
+          theme === "dark" 
+            ? "group-hover:shadow-[0_20px_50px_rgba(138,171,90,0.15)]" 
+            : "group-hover:shadow-[0_20px_50px_rgba(46,58,31,0.15)]"
+        }`} />
 
         {/* Layer 1: The Liquid Wave Border Element */}
         {/* Adjusted inset to prevent cropping */}
@@ -137,10 +140,10 @@ export default function UtopiaButton({
           className="absolute -inset-[1em] pointer-events-none z-10"
           style={{ filter: "url(#liquid-tips)" }}
         >
-          {/* Increased border thickness from 0.25em to 0.4em so the line survives the blur/alpha crush! */}
+          {/* Border thickness reduced by one third from 0.4em to 0.27em */}
           <div 
             ref={borderRef}
-            className={`absolute top-[1em] bottom-[1em] left-[1em] right-[1em] border-[0.4em] ${borderWaveColor} rounded-full`}
+            className={`absolute top-[1em] bottom-[1em] left-[1em] right-[1em] border-[0.27em] ${borderWaveColor} rounded-full`}
             style={{
               maskImage: "conic-gradient(from calc(var(--angle) - var(--spread)) at 50% 50%, black calc(var(--spread) * 2), transparent 0)",
               WebkitMaskImage: "conic-gradient(from calc(var(--angle) - var(--spread)) at 50% 50%, black calc(var(--spread) * 2), transparent 0)",

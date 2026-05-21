@@ -111,6 +111,51 @@ export default function OnboardingRoadmap() {
           }
         });
       }
+
+      // 3. MatchMedia for Mobile Timeline and Cards Animation
+      let mm = gsap.matchMedia();
+      mm.add("(max-width: 767px)", () => {
+        // Animate the vertical line drawing down
+        gsap.fromTo(
+          ".mobile-timeline-line",
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".mobile-timeline-line",
+              start: "top 80%",
+              end: "bottom 60%",
+              scrub: true,
+            }
+          }
+        );
+
+        // Animate each mobile card sliding up & fading in
+        const mobileCards = sectionRef.current?.querySelectorAll(".mobile-roadmap-card");
+        if (mobileCards) {
+          mobileCards.forEach((card) => {
+            gsap.fromTo(
+              card,
+              { opacity: 0, y: 50 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top 85%",
+                }
+              }
+            );
+          });
+        }
+      });
+
+      return () => {
+        mm.revert();
+      };
     },
     { scope: sectionRef }
   );
@@ -486,14 +531,23 @@ export default function OnboardingRoadmap() {
         {/* ========================================================================= */}
         {/* 📱 MOBILE RESPONSIVE EDITORIAL FLOW (block md:hidden)                   */}
         {/* ========================================================================= */}
-        <div className="block md:hidden w-full mt-[3em]">
+        <div className="block md:hidden w-full mt-[3em] relative">
+          
+          {/* Decorative Vertical DNA Timeline Thread */}
+          <div className="mobile-timeline-line absolute left-[1.1em] top-[2em] bottom-[2em] w-[2px] bg-gradient-to-b from-[#22C55E]/50 via-[#8aab5a]/30 to-[#22C55E]/10 z-0 origin-top" />
+          
           {/* Natural Vertical List of Cards */}
-          <div className="flex flex-col gap-[2.5em]">
+          <div className="flex flex-col gap-[2.5em] relative z-10 pl-[2.2em]">
             {meetSteps.map((step) => (
               <div
                 key={step.id}
-                className="bg-[#2e3a1f]/15 border border-[#F4EDE6]/10 p-[2.2em] rounded-[20px] flex flex-col justify-between shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
+                className="mobile-roadmap-card opacity-0 bg-[#2e3a1f]/15 border border-[#F4EDE6]/10 p-[2.2em] rounded-[20px] flex flex-col justify-between shadow-[0_10px_30px_rgba(0,0,0,0.15)] relative"
               >
+                {/* Horizontal connector line from vertical thread to card */}
+                <div className="absolute left-[-2.2em] top-[3.2em] w-[2.2em] h-[1px] bg-[#8aab5a]/20" />
+                {/* Micro DNA Node dot at the vertical line intersection */}
+                <div className="absolute left-[-2.35em] top-[3.05em] w-[0.4em] h-[0.4em] rounded-full bg-[#22C55E] ring-[3px] ring-[#22C55E]/30" />
+                
                 <div className="flex justify-between items-start mb-[1.2em]">
                   <div className="flex items-center">
                     <span className="w-[0.4em] h-[0.4em] rounded-full bg-[#22C55E] mr-[0.4em] animate-pulse" />
@@ -541,7 +595,7 @@ export default function OnboardingRoadmap() {
             href="#final-cta" 
             text="APPLY FOR ASSESSMENT" 
             spinningText="CELLULAR BLUEPRINT • CLINICAL SCAN • " 
-            theme="dark"
+            theme="light"
           />
         </div>
 

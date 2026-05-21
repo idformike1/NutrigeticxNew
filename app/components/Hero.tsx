@@ -7,6 +7,8 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const bgImageRef = useRef<HTMLDivElement>(null);
@@ -75,16 +77,16 @@ export default function Hero() {
         });
       }
 
-      // 3. Hide the fixed tablet after the second section overlaps it 
-      // to ensure it doesn't persist into the footer's z-0 context.
+      // 3. Hide the fixed tablet as the hero section scrolls out of view
       if (tabletRef.current) {
         gsap.to(tabletRef.current, {
           opacity: 0,
+          scale: 0.95,
           ease: "none",
           scrollTrigger: {
             trigger: heroRef.current,
-            start: "bottom top", // Starts fading once the hero section is fully scrolled out of view
-            end: "bottom -50%",
+            start: "top top",
+            end: "bottom top",
             scrub: true,
           },
         });
@@ -132,13 +134,13 @@ export default function Hero() {
           </div>
 
           {/* Tablet (Fixed Centerpiece) */}
-          <div ref={tabletRef} className="fixed inset-0 z-0 flex items-center justify-center pointer-events-none opacity-0">
+          <div ref={tabletRef} className="absolute md:fixed inset-0 z-0 flex items-center justify-center pointer-events-none opacity-0">
             <Image
               src="/images/wellness_hexagon_tablet.png"
               alt="Premium hexagonal wellness supplement tablet engraved with N"
               width={600}
               height={600}
-              className="w-full max-w-[30em] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
+              className="w-full max-w-[60vw] md:max-w-[30em] object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)]"
               priority
             />
           </div>

@@ -7,6 +7,8 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const communityItems = [
   {
     quote: "My VO2 Max output increased by 8.4% within 90 days of adopting the Nutrigetic cold-extraction protocol.",
@@ -45,20 +47,24 @@ export default function CommunitySection() {
 
   useGSAP(
     () => {
-      // Horizontal scroll animation for the gallery items
-      if (scrollRef.current) {
-        gsap.to(scrollRef.current, {
-          x: () => -(scrollRef.current!.scrollWidth - window.innerWidth + 80),
-          ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top top",
-            end: () => `+=${scrollRef.current!.scrollWidth / 2}`,
-            scrub: 1,
-            pin: true,
-          },
-        });
-      }
+      let mm = gsap.matchMedia();
+
+      mm.add("(min-width: 768px)", () => {
+        // Horizontal scroll animation for the gallery items
+        if (scrollRef.current) {
+          gsap.to(scrollRef.current, {
+            x: () => -(scrollRef.current!.scrollWidth - window.innerWidth + 80),
+            ease: "none",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top top",
+              end: () => `+=${scrollRef.current!.scrollWidth / 2}`,
+              scrub: 1,
+              pin: true,
+            },
+          });
+        }
+      });
 
       // 1. Heading reveal with split text
       const head = headRef.current?.querySelector(".reveal-head");
@@ -99,6 +105,8 @@ export default function CommunitySection() {
           }
         );
       }
+
+      return () => mm.revert();
     },
     { scope: containerRef }
   );
@@ -120,11 +128,11 @@ export default function CommunitySection() {
  
       {/* Horizontal Scroll Gallery */}
       <div className="relative">
-        <div ref={scrollRef} className="flex gap-[1.5em] lg:gap-[2.5em] px-0">
+        <div ref={scrollRef} className="flex flex-col md:flex-row gap-[1.5em] lg:gap-[2.5em] px-0">
           {communityItems.map((item, i) => (
             <div
               key={i}
-              className="shrink-0 w-[22em] md:w-[28em] aspect-[4/5] relative group overflow-hidden rounded-[24px] border border-[#F4EDE6]/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:border-[#22C55E]/30 transition-colors duration-500"
+              className="shrink-0 w-full md:w-[28em] aspect-[4/5] relative group overflow-hidden rounded-[24px] border border-[#F4EDE6]/10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:border-[#22C55E]/30 transition-colors duration-500"
             >
               {/* Premium Background Image */}
               <Image
@@ -139,13 +147,13 @@ export default function CommunitySection() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0D1508]/95 via-[#0D1508]/40 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-95" />
               
               {/* Floating Bio-Metric Tag (Top Right) */}
-              <div className="absolute top-[1.5em] right-[1.5em] bg-[#F4EDE6]/95 backdrop-blur-md border border-[#2e3a1f]/10 px-[0.8em] py-[0.5em] rounded-full shadow-lg flex items-center gap-[0.5em] opacity-0 translate-y-[-10px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100 z-20">
+              <div className="absolute top-[1.5em] right-[1.5em] bg-[#F4EDE6]/95 backdrop-blur-md border border-[#2e3a1f]/10 px-[0.8em] py-[0.5em] rounded-full shadow-lg flex items-center gap-[0.5em] opacity-100 md:opacity-0 md:translate-y-[-10px] md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500 delay-100 z-20">
                  <span className="w-[0.4em] h-[0.4em] rounded-full bg-[#22C55E] animate-pulse" />
                  <span className="text-[0.6rem] text-[#2e3a1f] tracking-[0.15em] font-bold font-mono uppercase whitespace-nowrap">
                    {item.metric}
                  </span>
               </div>
-
+ 
               {/* Content Panel (Bottom) */}
               <div className="absolute bottom-0 left-0 right-0 p-[2.5em] flex flex-col justify-end h-full z-10">
                 
@@ -170,7 +178,7 @@ export default function CommunitySection() {
           ))}
           
           {/* Spacer to allow full scroll padding at the end */}
-          <div className="shrink-0 w-[5em]" />
+          <div className="shrink-0 w-[5em] hidden md:block" />
         </div>
       </div>
     </section>

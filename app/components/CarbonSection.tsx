@@ -7,6 +7,8 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function CarbonSection() {
   const containerRef = useRef<HTMLElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);

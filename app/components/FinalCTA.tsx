@@ -77,10 +77,10 @@ export default function FinalCTA() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#0D1508]/10 via-[#0D1508]/80 to-[#0D1508]" />
       </div>
  
-      <div className="relative z-10 w-full px-[var(--padding-web)] py-[var(--section-padding)] flex flex-col md:flex-row gap-[5em] lg:gap-[10em] items-center">
+      <div className="relative z-10 w-full px-[var(--padding-mobile)] md:px-[var(--padding-web)] py-[var(--section-padding)] flex flex-col md:flex-row gap-[5em] lg:gap-[10em] items-center">
         
         {/* Left Content Column */}
-        <div className="flex-1" ref={headRef}>
+        <div className="flex-1 w-full" ref={headRef}>
           <h2 className="reveal-head text-100-regular text-[#F4EDE6] leading-tight mt-[1em]">
             <TextSplit text="Unlock Your True" /><br />
             <TextSplit text="Performance" />
@@ -92,26 +92,19 @@ export default function FinalCTA() {
               EXPERIENCE THE NUTRIGETIC METHOD — TAILORED ENTIRELY TO YOUR OWN CLINICAL BIOMARKERS. WE SCREEN EACH APPLICANT TO PRESERVE EARLY-STAGE ELITE COACHING FOCUS.
             </p>
             
-            <div className="flex flex-wrap gap-[1.5em] items-center">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-[1.5em] items-start sm:items-center">
               {/* Primary Glowing Capsule CTA (Utopia Interactive Button) */}
-              <UtopiaButton 
-                href="#free-assessment" 
-                text="APPLY FOR ASSESSMENT" 
-                spinningText="CLINICAL PROTOCOL • INTAKE SCAN • " 
-                theme="dark"
-              />
-              
-              {/* Secondary Outlined CTA */}
-              <a
-                href="#contact-us"
-                className="inline-flex items-center gap-[0.75em] px-[2.5em] py-[1.2em] border border-[#F4EDE6]/20 text-[#F4EDE6] text-14-caps font-bold tracking-widest rounded-full transition-colors duration-300 hover:bg-[#F4EDE6]/10 hover:border-[#F4EDE6]/40"
-              >
-                Talk to a biometric coach
-              </a>
+              <div className="w-full sm:w-auto flex justify-start">
+                <UtopiaButton 
+                  href="#free-assessment" 
+                  text="APPLY FOR ASSESSMENT" 
+                  spinningText="CLINICAL PROTOCOL • INTAKE SCAN • " 
+                  theme="light"
+                />
+              </div>
             </div>
           </div>
         </div>
-
         {/* Right Decorative Images Gallery (Upgraded from Farms to Science) */}
         <div className="flex-1 hidden lg:grid grid-cols-2 gap-[2em] items-start relative">
            

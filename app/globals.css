@@ -38,7 +38,13 @@ body {
   font-family: "Aeonik", "Inter", ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
   /* Option A: Global Scaling Implementation */
-  font-size: 4.2vw; /* Mobile base */
+  font-size: 3.8vw; /* Reduced slightly on small mobiles to prevent layout overflow */
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  body {
+    font-size: 4.2vw;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -62,24 +68,38 @@ body {
    TYPOGRAPHY
    ============================================= */
 .text-100-regular {
-  font-size: 5em; /* Adjusted to match original scale */
-  line-height: 0.88; /* Tighter leading */
+  font-size: 3em; /* Scaled down on mobile to prevent clipping */
+  line-height: 0.9;
   font-weight: 400;
-  letter-spacing: -0.04em; /* Tighter kerning */
+  letter-spacing: -0.04em;
 }
 
 .text-80-regular {
-  font-size: 4em;
-  line-height: 0.9;
+  font-size: 2.4em; /* Scaled down on mobile */
+  line-height: 0.95;
   font-weight: 400;
   letter-spacing: -0.03em;
 }
 
 .text-60-regular {
-  font-size: 3em;
+  font-size: 2em; /* Scaled down on mobile */
   line-height: 1;
   font-weight: 400;
   letter-spacing: -0.03em;
+}
+
+@media screen and (min-width: 768px) {
+  .text-100-regular {
+    font-size: 5em;
+    line-height: 0.88;
+  }
+  .text-80-regular {
+    font-size: 4em;
+    line-height: 0.9;
+  }
+  .text-60-regular {
+    font-size: 3em;
+  }
 }
 
 .text-44-regular {

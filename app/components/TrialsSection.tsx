@@ -6,6 +6,8 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const trialLocations = [
   { country: "USA", focus: "Athletic Performance", x: "20%", y: "35%" },
   { country: "Bolivia", focus: "Altitude Adaptability", x: "25%", y: "65%" },

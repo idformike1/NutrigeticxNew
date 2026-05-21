@@ -7,32 +7,59 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function ProblemSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
-      // 1. Pin section and horizontal battery continuous gradient reveal on scroll
+      let mm = gsap.matchMedia();
+
+      // 1. Battery Continuous Gradient Reveal on scroll
       const gradientFill = sectionRef.current?.querySelector(".battery-gradient-fill");
       const maskCells = sectionRef.current?.querySelectorAll(".battery-mask-cell");
+      const batteryTrigger = sectionRef.current?.querySelector(".relative.mt-auto");
+
       if (gradientFill && maskCells && maskCells.length === 3) {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top", // Pin when section top touches viewport top
-            end: "+=120%",   // Pin for 120% of viewport height scroll
-            scrub: true,
-            pin: true,        // Enable pinning!
-            anticipatePin: 1,
-          }
+        // Desktop Layout (min-width: 768px): Pin the entire split section
+        mm.add("(min-width: 768px)", () => {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: "+=120%",
+              scrub: true,
+              pin: true,
+              anticipatePin: 1,
+            }
+          });
+
+          tl.to(gradientFill as HTMLElement, { width: "100%", ease: "none" }, 0)
+            .to(maskCells[0] as HTMLElement, { backgroundColor: "transparent", ease: "none" }, 0.05)
+            .to(maskCells[1] as HTMLElement, { backgroundColor: "transparent", ease: "none" }, 0.35)
+            .to(maskCells[2] as HTMLElement, { backgroundColor: "transparent", ease: "none" }, 0.65);
         });
 
-        // Animate the continuous gradient width expansion and sequentially reveal the mask slots
-        tl.to(gradientFill as HTMLElement, { width: "100%", ease: "none" }, 0)
-          .to(maskCells[0] as HTMLElement, { backgroundColor: "transparent", ease: "none" }, 0.05)
-          .to(maskCells[1] as HTMLElement, { backgroundColor: "transparent", ease: "none" }, 0.35)
-          .to(maskCells[2] as HTMLElement, { backgroundColor: "transparent", ease: "none" }, 0.65);
+        // Mobile Layout (max-width: 767px): Do not pin, trigger animation when battery is in viewport
+        mm.add("(max-width: 767px)", () => {
+          if (batteryTrigger) {
+            const tl = gsap.timeline({
+              scrollTrigger: {
+                trigger: batteryTrigger,
+                start: "top 85%",
+                end: "bottom 60%",
+                scrub: true,
+              }
+            });
+
+            tl.to(gradientFill as HTMLElement, { width: "100%", ease: "none" }, 0)
+              .to(maskCells[0] as HTMLElement, { backgroundColor: "transparent", ease: "none" }, 0.05)
+              .to(maskCells[1] as HTMLElement, { backgroundColor: "transparent", ease: "none" }, 0.35)
+              .to(maskCells[2] as HTMLElement, { backgroundColor: "transparent", ease: "none" }, 0.65);
+          }
+        });
       }
 
       // 2. Character stagger for headings
@@ -61,24 +88,26 @@ export default function ProblemSection() {
       // 3. Simple fade-in for paragraphs
       const revealParas = sectionRef.current?.querySelectorAll(".reveal-para");
       if (revealParas) {
-        gsap.fromTo(
-          revealParas,
-          { opacity: 0, y: "1em" },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: revealParas,
-              start: "top 90%",
-            },
-          }
-        );
+        revealParas.forEach((para) => {
+          gsap.fromTo(
+            para,
+            { opacity: 0, y: "1em" },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: para,
+                start: "top 90%",
+              }
+            }
+          );
+        });
       }
 
       return () => {
+        mm.revert();
       };
     },
     { scope: sectionRef }

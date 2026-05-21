@@ -7,12 +7,16 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function ProductShowcase() {
   const containerRef = useRef<HTMLElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
+      let mm = gsap.matchMedia();
+
       // 1. Pinned Scroll Option 3: The Concentric Radar Deck (Symmetric Circular Viewport)
       const bgImages = sectionRef.current?.querySelectorAll(".consortium-bg-image");
       const radarPulse = sectionRef.current?.querySelector(".consortium-radar-pulse");
@@ -20,61 +24,74 @@ export default function ProductShowcase() {
       const signalDot = sectionRef.current?.querySelector(".consortium-signal-dot");
       const deptCards = sectionRef.current?.querySelectorAll(".dept-card");
       
-      if (stickyRef.current && bgImages && bgImages.length === 3 && radarPulse && pathProgress && signalDot && deptCards && deptCards.length === 3) {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: stickyRef.current,
-            start: "top top",
-            end: "+=80%",
-            pin: true,
-            scrub: true,
-          }
-        });
+      const setupTimeline = (scrollEnd: string) => {
+        if (stickyRef.current && bgImages && bgImages.length === 3 && radarPulse && pathProgress && signalDot && deptCards && deptCards.length === 3) {
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: stickyRef.current,
+              start: "top top",
+              end: scrollEnd,
+              pin: true,
+              scrub: true,
+            }
+          });
 
-        // Set initial state for the absolute stacked images
-        gsap.set(bgImages[0] as HTMLElement, { opacity: 1 });
-        gsap.set(bgImages[1] as HTMLElement, { opacity: 0 });
-        gsap.set(bgImages[2] as HTMLElement, { opacity: 0 });
+          // Set initial state for the absolute stacked images
+          gsap.set(bgImages[0] as HTMLElement, { opacity: 1 });
+          gsap.set(bgImages[1] as HTMLElement, { opacity: 0 });
+          gsap.set(bgImages[2] as HTMLElement, { opacity: 0 });
 
-        // Slow cinematic zoom of all images inside circular frame
-        bgImages.forEach((bgImg) => {
-          tl.to(bgImg as HTMLElement, { scale: 1.25, ease: "none", duration: 5 }, 0);
-        });
+          // Slow cinematic zoom of all images inside circular frame
+          bgImages.forEach((bgImg) => {
+            tl.to(bgImg as HTMLElement, { scale: 1.25, ease: "none", duration: 5 }, 0);
+          });
 
-        // Timeline Progress Path vertical drawing
-        tl.to(pathProgress as HTMLElement, { height: "100%", ease: "none", duration: 5 }, 0);
-        
-        // Signal dot glides down the path line
-        tl.fromTo(signalDot as HTMLElement, { top: "0%", opacity: 0 }, { opacity: 1, duration: 0.2 }, 0)
-          .to(signalDot as HTMLElement, { top: "100%", ease: "none", duration: 4.6 }, 0.2)
-          .to(signalDot as HTMLElement, { opacity: 0, duration: 0.2 }, 4.8);
-
-        // Sequentially trigger card reveals, sliding them in, and trigger radar flashes and image transitions
-        tl.fromTo(deptCards[0] as HTMLElement, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5 }, 0.0)
-          .fromTo(radarPulse as HTMLElement, { opacity: 0 }, { opacity: 0.5, duration: 0.3, ease: "power1.out" }, 0.0)
-          .to(radarPulse as HTMLElement, { opacity: 0, duration: 0.4 }, 0.3)
+          // Timeline Progress Path vertical drawing
+          tl.to(pathProgress as HTMLElement, { height: "100%", ease: "none", duration: 5 }, 0);
           
-          // Card 1 Exit / Image 1 Exit
-          .to(deptCards[0] as HTMLElement, { opacity: 0, x: -30, duration: 0.5 }, 1.2)
-          .to(bgImages[0] as HTMLElement, { opacity: 0, duration: 0.5 }, 1.2)
-          
-          // Card 2 Entry / Image 2 Entry
-          .fromTo(bgImages[1] as HTMLElement, { opacity: 0 }, { opacity: 1, duration: 0.5 }, 2.0)
-          .fromTo(deptCards[1] as HTMLElement, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5 }, 2.0)
-          .fromTo(radarPulse as HTMLElement, { opacity: 0 }, { opacity: 0.5, duration: 0.3, ease: "power1.out" }, 2.0)
-          .to(radarPulse as HTMLElement, { opacity: 0, duration: 0.4 }, 2.3)
-          
-          // Card 2 Exit / Image 2 Exit
-          .to(deptCards[1] as HTMLElement, { opacity: 0, x: -30, duration: 0.5 }, 3.2)
-          .to(bgImages[1] as HTMLElement, { opacity: 0, duration: 0.5 }, 3.2)
-          
-          // Card 3 Entry / Image 3 Entry
-          .fromTo(bgImages[2] as HTMLElement, { opacity: 0 }, { opacity: 1, duration: 0.5 }, 4.0)
-          .fromTo(deptCards[2] as HTMLElement, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5 }, 4.0)
-          .fromTo(radarPulse as HTMLElement, { opacity: 0 }, { opacity: 0.5, duration: 0.3, ease: "power1.out" }, 4.0)
-          .to(radarPulse as HTMLElement, { opacity: 0, duration: 0.4 }, 4.3);
-      }
+          // Signal dot glides down the path line
+          tl.fromTo(signalDot as HTMLElement, { top: "0%", opacity: 0 }, { opacity: 1, duration: 0.2 }, 0)
+            .to(signalDot as HTMLElement, { top: "100%", ease: "none", duration: 4.6 }, 0.2)
+            .to(signalDot as HTMLElement, { opacity: 0, duration: 0.2 }, 4.8);
 
+          // Sequentially trigger card reveals, sliding them in, and trigger radar flashes and image transitions
+          tl.fromTo(deptCards[0] as HTMLElement, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5 }, 0.0)
+            .fromTo(radarPulse as HTMLElement, { opacity: 0 }, { opacity: 0.5, duration: 0.3, ease: "power1.out" }, 0.0)
+            .to(radarPulse as HTMLElement, { opacity: 0, duration: 0.4 }, 0.3)
+            
+            // Card 1 Exit / Image 1 Exit
+            .to(deptCards[0] as HTMLElement, { opacity: 0, x: -30, duration: 0.5 }, 1.2)
+            .to(bgImages[0] as HTMLElement, { opacity: 0, duration: 0.5 }, 1.2)
+            
+            // Card 2 Entry / Image 2 Entry
+            .fromTo(bgImages[1] as HTMLElement, { opacity: 0 }, { opacity: 1, duration: 0.5 }, 2.0)
+            .fromTo(deptCards[1] as HTMLElement, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5 }, 2.0)
+            .fromTo(radarPulse as HTMLElement, { opacity: 0 }, { opacity: 0.5, duration: 0.3, ease: "power1.out" }, 2.0)
+            .to(radarPulse as HTMLElement, { opacity: 0, duration: 0.4 }, 2.3)
+            
+            // Card 2 Exit / Image 2 Exit
+            .to(deptCards[1] as HTMLElement, { opacity: 0, x: -30, duration: 0.5 }, 3.2)
+            .to(bgImages[1] as HTMLElement, { opacity: 0, duration: 0.5 }, 3.2)
+            
+            // Card 3 Entry / Image 3 Entry
+            .fromTo(bgImages[2] as HTMLElement, { opacity: 0 }, { opacity: 1, duration: 0.5 }, 4.0)
+            .fromTo(deptCards[2] as HTMLElement, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.5 }, 4.0)
+            .fromTo(radarPulse as HTMLElement, { opacity: 0 }, { opacity: 0.5, duration: 0.3, ease: "power1.out" }, 4.0)
+            .to(radarPulse as HTMLElement, { opacity: 0, duration: 0.4 }, 4.3);
+        }
+      };
+
+      mm.add("(min-width: 768px)", () => {
+        setupTimeline("+=150%");
+      });
+
+      mm.add("(max-width: 767px)", () => {
+        setupTimeline("+=220%");
+      });
+
+      return () => {
+        mm.revert();
+      };
     },
     { scope: containerRef, dependencies: [] }
   );
@@ -91,42 +108,44 @@ export default function ProductShowcase() {
           {/* Left Column: Symmetrical Circular Viewport & Dashed Radar Ring */}
           <div className="relative w-full h-[45vh] md:h-full flex items-center justify-center bg-[#2e3a1f] select-none overflow-hidden">
             
-            {/* Rotating dashed outer coordinate technical ring */}
-            <div 
-              className="absolute w-[20em] h-[20em] md:w-[24em] md:h-[24em] lg:w-[28em] lg:h-[28em] border border-[#8aab5a]/30 rounded-full animate-[spin_60s_linear_infinite] pointer-events-none"
-              style={{ borderStyle: "dashed" }}
-            />
-            
-            {/* Centered clean circular image viewport with diagnostic glow */}
-            <div className="relative w-[17em] h-[17em] md:w-[21em] md:h-[21em] lg:w-[25em] lg:h-[25em] rounded-full overflow-hidden border-[4px] border-[#EDE5DB]/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] z-10">
-              {/* Image 1: Dedicated Lead Nutritionist */}
-              <Image
-                src="/images/nutrigetic_consortium.png"
-                alt="Nutrigetic dedicated clinical nutrition panel"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="consortium-bg-image absolute inset-0 w-full h-full object-cover object-center scale-[1.1] will-change-transform opacity-100"
-                priority
-              />
-              {/* Image 2: Biochemist Input */}
-              <Image
-                src="/images/wellness_hexagon_tablet.png"
-                alt="Nutrigetic biochemical telemetry diagnostic screens"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="consortium-bg-image absolute inset-0 w-full h-full object-cover object-center scale-[1.1] will-change-transform opacity-0"
-              />
-              {/* Image 3: Sports Science & Psych Input */}
-              <Image
-                src="/images/nutrigetic_absorption_bg.png"
-                alt="Nutrigetic metabolic absorption and sports psychology diagnostics"
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                className="consortium-bg-image absolute inset-0 w-full h-full object-cover object-center scale-[1.1] will-change-transform opacity-0"
+            <div className="relative flex items-center justify-center mt-[4.5em] md:mt-0">
+              {/* Rotating dashed outer coordinate technical ring */}
+              <div 
+                className="absolute w-[15em] h-[15em] md:w-[24em] md:h-[24em] lg:w-[28em] lg:h-[28em] border border-[#8aab5a]/30 rounded-full animate-[spin_60s_linear_infinite] pointer-events-none"
+                style={{ borderStyle: "dashed" }}
               />
               
-              {/* Dynamic radar scanning pulse flash overlay */}
-              <div className="consortium-radar-pulse absolute inset-0 bg-[#22C55E]/20 opacity-0 mix-blend-screen pointer-events-none transition-opacity duration-300" />
+              {/* Centered clean circular image viewport with diagnostic glow */}
+              <div className="relative w-[13em] h-[13em] md:w-[21em] md:h-[21em] lg:w-[25em] lg:h-[25em] rounded-full overflow-hidden border-[4px] border-[#EDE5DB]/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] z-10">
+                {/* Image 1: Dedicated Lead Nutritionist */}
+                <Image
+                  src="/images/nutrigetic_consortium.png"
+                  alt="Nutrigetic dedicated clinical nutrition panel"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="consortium-bg-image absolute inset-0 w-full h-full object-cover object-center scale-[1.1] will-change-transform opacity-100"
+                  priority
+                />
+                {/* Image 2: Biochemist Input */}
+                <Image
+                  src="/images/wellness_hexagon_tablet.png"
+                  alt="Nutrigetic biochemical telemetry diagnostic screens"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="consortium-bg-image absolute inset-0 w-full h-full object-cover object-center scale-[1.1] will-change-transform opacity-0"
+                />
+                {/* Image 3: Sports Science & Psych Input */}
+                <Image
+                  src="/images/nutrigetic_absorption_bg.png"
+                  alt="Nutrigetic metabolic absorption and sports psychology diagnostics"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="consortium-bg-image absolute inset-0 w-full h-full object-cover object-center scale-[1.1] will-change-transform opacity-0"
+                />
+                
+                {/* Dynamic radar scanning pulse flash overlay */}
+                <div className="consortium-radar-pulse absolute inset-0 bg-[#22C55E]/20 opacity-0 mix-blend-screen pointer-events-none transition-opacity duration-300" />
+              </div>
             </div>
 
           </div>
