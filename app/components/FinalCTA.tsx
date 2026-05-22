@@ -6,7 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
-import UtopiaButton from "./UtopiaButton";
+import OrganicPhysicsButton from "./OrganicPhysicsButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -93,13 +93,11 @@ export default function FinalCTA() {
             </p>
             
             <div className="flex flex-col sm:flex-row flex-wrap gap-[1.5em] items-start sm:items-center">
-              {/* Primary Glowing Capsule CTA (Utopia Interactive Button) */}
-              <div className="w-full sm:w-auto flex justify-start">
-                <UtopiaButton 
+              <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-6 justify-start items-center">
+                <OrganicPhysicsButton 
                   href="#free-assessment" 
-                  text="APPLY FOR ASSESSMENT" 
-                  spinningText="CLINICAL PROTOCOL • INTAKE SCAN • " 
-                  theme="light"
+                  text="Apply for assessment →" 
+                  variant="light"
                 />
               </div>
             </div>

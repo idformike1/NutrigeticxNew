@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
-import UtopiaButton from "./UtopiaButton";
+import OrganicPhysicsButton from "./OrganicPhysicsButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -590,12 +590,11 @@ export default function OnboardingRoadmap() {
         {/* ========================================================================= */}
         {/* 🚀 CLINICAL CALL-TO-ACTION (Shared Desktop & Mobile)                     */}
         {/* ========================================================================= */}
-        <div className="flex justify-center mt-[4em] lg:mt-[5.5em] relative z-10">
-          <UtopiaButton 
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-[4em] lg:mt-[5.5em] relative z-10">
+          <OrganicPhysicsButton 
             href="#final-cta" 
-            text="APPLY FOR ASSESSMENT" 
-            spinningText="CELLULAR BLUEPRINT • CLINICAL SCAN • " 
-            theme="light"
+            text="Apply for assessment →" 
+            variant="light"
           />
         </div>
 

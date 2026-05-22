@@ -317,14 +317,14 @@ export default function Navigation() {
             className="absolute top-0 left-0 right-0 w-full h-full md:h-[60vh] bg-[#f4ede6] z-20 shadow-2xl"
           />
 
-          {/* Layer 3: Blue Band (Background Curtain Only) */}
+          {/* Layer 3: Brand Green Band (Background Curtain Only) */}
           <div
             ref={sidebarRef}
             style={{ transform: "translateY(-100%)" }}
-            className="absolute top-0 left-0 right-0 w-full h-full md:h-[60vh] bg-[#0066cc] z-30 shadow-2xl pointer-events-none"
+            className="absolute top-0 left-0 right-0 w-full h-full md:h-[60vh] bg-[#2e3a1f] z-30 shadow-2xl pointer-events-none"
           />
 
-          {/* Layer 4: Static Menu Content Panel (Always static on Y, overlays the blue curtain) */}
+          {/* Layer 4: Static Menu Content Panel (Always static on Y, overlays the green curtain) */}
           <div
             ref={contentRef}
             className="absolute top-0 left-0 right-0 w-full h-full md:h-[60vh] text-[#F4EDE6] flex flex-col overflow-y-auto z-40"
@@ -352,15 +352,15 @@ export default function Navigation() {
               </a>
             </div>
 
-            {/* Menu columns (aligned at bottom on desktop, borders removed) */}
-            <div className="flex flex-col md:flex-row w-full px-6 md:px-[8%] lg:px-[10%] pt-12 md:pt-16 pb-12 flex-grow overflow-y-auto items-stretch md:items-end">
-              {/* Left column: secondary & legal links (bottom-aligned, borders removed) */}
-              <div className="w-full md:w-[35%] flex flex-col justify-end mb-8 md:mb-0 pb-4 md:pb-1 pr-0 md:pr-8 pt-6 md:pt-12">
-                {/* Secondary links (Upper left - row spacing reduced by half: gap-0.5, py-[1px]) */}
-                <div className="flex flex-col gap-0.5 mb-6 md:mb-10">
+            {/* Menu columns (centered on desktop, borders removed) */}
+            <div className="flex flex-col md:flex-row w-full px-6 md:px-[8%] lg:px-[10%] pt-6 md:pt-8 pb-8 md:pb-10 flex-grow overflow-y-auto items-stretch md:items-center">
+              {/* Left column: secondary & legal links (centered, ordered second on mobile, first on desktop) */}
+              <div className="w-full md:w-[35%] flex flex-col justify-center order-2 md:order-1 mb-8 md:mb-0 pb-4 md:pb-1 pr-0 md:pr-8 pt-0">
+                {/* Secondary links (Upper left - row spacing reduced further: gap-[1px], py-0) */}
+                <div className="flex flex-col gap-[1px] mb-6 md:mb-10">
                   <a
                     href="mailto:hello@nutrigetic.com"
-                    className="menu-left-social text-[1.1rem] font-bold tracking-tight opacity-80 hover:opacity-100 transition-opacity py-[1px] block menu-link-underline w-fit"
+                    className="menu-left-social text-[16px] font-medium tracking-tight opacity-80 hover:opacity-100 transition-opacity py-0 block menu-link-underline w-fit"
                   >
                     hello@nutrigetic.com
                   </a>
@@ -368,7 +368,7 @@ export default function Navigation() {
                     href="https://www.linkedin.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="menu-left-social text-[1.1rem] font-bold tracking-tight opacity-80 hover:opacity-100 transition-opacity py-[1px] block menu-link-underline w-fit"
+                    className="menu-left-social text-[16px] font-medium tracking-tight opacity-80 hover:opacity-100 transition-opacity py-0 block menu-link-underline w-fit"
                   >
                     LinkedIn
                   </a>
@@ -376,7 +376,7 @@ export default function Navigation() {
                     href="https://www.instagram.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="menu-left-social text-[1.1rem] font-bold tracking-tight opacity-80 hover:opacity-100 transition-opacity py-[1px] block menu-link-underline w-fit"
+                    className="menu-left-social text-[16px] font-medium tracking-tight opacity-80 hover:opacity-100 transition-opacity py-0 block menu-link-underline w-fit"
                   >
                     Instagram
                   </a>
@@ -384,7 +384,7 @@ export default function Navigation() {
                     href="https://www.youtube.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="menu-left-social text-[1.1rem] font-bold tracking-tight opacity-80 hover:opacity-100 transition-opacity py-[1px] block menu-link-underline w-fit"
+                    className="menu-left-social text-[16px] font-medium tracking-tight opacity-80 hover:opacity-100 transition-opacity py-0 block menu-link-underline w-fit"
                   >
                     YouTube
                   </a>
@@ -423,8 +423,8 @@ export default function Navigation() {
                 </div>
               </div>
 
-              {/* Right column: primary links - bottom-aligned, reduced gaps */}
-              <div className="w-full md:w-[65%] flex flex-col justify-end items-start pl-0 md:pl-[12%] py-2 gap-1 md:gap-1.5">
+              {/* Right column: primary links - centered, ordered first on mobile, second on desktop */}
+              <div className="w-full md:w-[65%] flex flex-col justify-center items-start order-1 md:order-2 pl-0 md:pl-[12%] py-2 gap-1 md:gap-1.5">
                 {navLinks.map((item) => (
                   <div
                     key={item.label}

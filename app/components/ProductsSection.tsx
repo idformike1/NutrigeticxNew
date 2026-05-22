@@ -192,9 +192,9 @@ export default function ProductsSection() {
               </div>
 
               {/* Card Content */}
-              <div className="relative z-10 p-[1.8em] md:p-[2.5em] flex flex-col justify-between h-full min-h-[22em] md:min-h-[32em]">
+              <div className="relative z-10 p-[1.5em] lg:p-[2.5em] flex flex-col justify-between h-full min-h-[22em] md:min-h-[32em]">
                 {/* Top: Branding & Floating Bio-Data Tag */}
-                <div className="flex justify-between items-start gap-[1em]">
+                <div className="flex flex-col lg:flex-row justify-between items-start gap-2 lg:gap-[1em]">
                   <p className="text-[0.65rem] text-[#F4EDE6]/40 tracking-widest font-bold uppercase mt-[0.5em]">Nutrigetic</p>
                   
                   <div className="bg-[#22C55E]/10 border border-[#22C55E]/20 px-[0.8em] py-[0.5em] rounded-full backdrop-blur-sm flex items-center gap-[0.5em] shadow-[0_5px_15px_rgba(34,197,94,0.1)]">

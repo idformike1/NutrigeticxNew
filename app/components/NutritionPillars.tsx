@@ -431,7 +431,7 @@ export default function NutritionPillars() {
           {capsuleCards.map((card, index) => (
             <div
               key={card.id}
-              className="sticky bg-[#EDE5DB]/95 border border-[#2e3a1f]/10 p-[2.2em] rounded-[24px] flex flex-col justify-between shadow-[0_-10px_35px_rgba(46,58,31,0.06)] min-h-[22em]"
+              className="sticky bg-[#EDE5DB] border border-[#2e3a1f]/10 p-[2.2em] rounded-[24px] flex flex-col justify-between shadow-[0_-10px_35px_rgba(46,58,31,0.06)] min-h-[22em]"
               style={{
                 top: `calc(4.5em + ${index * 1.8}em)`,
                 zIndex: index + 1,

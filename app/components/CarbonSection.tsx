@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TextSplit from "./TextSplit";
+import OrganicPhysicsButton from "./OrganicPhysicsButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,13 +100,13 @@ export default function CarbonSection() {
               With Nutrigetic, you experience absolute purity. Our formulas are cold-encapsulated from raw organic extracts — ensuring maximum natural bioavailability with zero synthetic fillers, heavy metals, or biological compromise.
             </p>
             
-            <a
-              href="#about"
-              className="reveal-up opacity-0 inline-flex items-center gap-[0.75em] px-[2.8em] py-[1.25em] bg-[#2e3a1f] text-[#F4EDE6] text-14-caps font-bold tracking-widest rounded-full transition-all duration-500 ease-out hover:scale-105 hover:bg-[#8aab5a] hover:text-[#0D1508] shadow-[0_10px_30px_rgba(46,58,31,0.15)] hover:shadow-[0_15px_40px_rgba(138,171,90,0.3)] active:scale-95 group"
-            >
-              <span className="w-[0.4em] h-[0.4em] rounded-full bg-[#22C55E] group-hover:bg-[#0D1508] transition-colors duration-300 animate-pulse" />
-              VIEW EXTRACTION PROTOCOL
-            </a>
+            <div className="reveal-up opacity-0 inline-block">
+              <OrganicPhysicsButton
+                href="#about"
+                text="VIEW EXTRACTION PROTOCOL"
+                variant="dark"
+              />
+            </div>
           </div>
 
           {/* Parallax Image Upgrade */}
