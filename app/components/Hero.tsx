@@ -180,14 +180,14 @@ export default function Hero() {
           {[...Array(2)].map((_, set) => (
             <div key={set} className="flex items-center gap-[4em] shrink-0 px-[2em]">
               {[
-                "/images/68b947f63b9e157c84ed0463_Frame_675679694.avif",
-                "/images/68b9482bca1433c95ae72faf_IFA-Logo_InnovationForAll_000_1.avif",
-                "/images/68b948608538d29553d0112b_Page-1.avif",
-                "/images/68b9487abc006b909d22d258_main-logo_1.avif",
-                "/images/68b9495bdd067615739eb0cf_Frame_675679696.avif",
-              ].map((src, i) => (
+                { src: "/images/logo_fssai_v2.png", alt: "FSSAI India Logo" },
+                { src: "/images/logo_icmr_v2.png", alt: "ICMR India Logo" },
+                { src: "/images/logo_niti_aayog_v2.png", alt: "NITI Aayog Logo" },
+                { src: "/images/logo_akshaya_patra_v2.png", alt: "Akshaya Patra Foundation Logo" },
+                { src: "/images/logo_nin_v2.png", alt: "National Institute of Nutrition (NIN) India Logo" },
+              ].map((logo, i) => (
                 <div key={i} className="shrink-0 relative w-[8em] h-[2em]">
-                  <Image src={src} alt="" fill sizes="8em" className="object-contain brightness-0 invert opacity-50" />
+                  <Image src={logo.src} alt={logo.alt} fill sizes="8em" className="object-contain brightness-0 invert opacity-50" />
                 </div>
               ))}
             </div>

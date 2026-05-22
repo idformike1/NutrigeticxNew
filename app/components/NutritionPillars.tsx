@@ -100,6 +100,8 @@ export default function NutritionPillars() {
       // 3. Desktop Overlay Stacking Timeline (Cards slide from down with fade)
       if (desktopTriggerRef.current) {
         // Set initial states: Card 1 is active, Cards 2 and 3 are completely hidden (opacity: 0, translated down by 350px)
+        gsap.set("#desktop-pillar-card-1", { y: 0, opacity: 1 });
+        gsap.set("#desktop-pillar-card-1 .card-body-content", { opacity: 1 });
         gsap.set("#desktop-pillar-card-2", { y: 350, opacity: 0 });
         gsap.set("#desktop-pillar-card-2 .card-body-content", { opacity: 0 });
         gsap.set("#desktop-pillar-card-3", { y: 350, opacity: 0 });
@@ -111,6 +113,7 @@ export default function NutritionPillars() {
             start: "top top",
             end: "bottom bottom",
             scrub: 0.5,
+            invalidateOnRefresh: true,
             onUpdate: (self) => {
               const progress = self.progress;
               // Sync three active telemetry states in the right column
@@ -126,17 +129,17 @@ export default function NutritionPillars() {
         });
 
         // Frame 1 to Frame 2: Card 1 shifts up by -110px (body fades out), Card 2 fades in and slides from down (y: 350px -> 0)
-        tl.to("#desktop-pillar-card-1", {
-          y: -110,
-          duration: 1,
-          ease: "power2.inOut"
-        }, 0);
+        tl.fromTo("#desktop-pillar-card-1",
+          { y: 0 },
+          { y: -110, duration: 1, ease: "power2.inOut" },
+          0
+        );
 
-        tl.to("#desktop-pillar-card-1 .card-body-content", {
-          opacity: 0,
-          duration: 0.8,
-          ease: "power2.inOut"
-        }, 0);
+        tl.fromTo("#desktop-pillar-card-1 .card-body-content",
+          { opacity: 1 },
+          { opacity: 0, duration: 0.8, ease: "power2.inOut" },
+          0
+        );
 
         tl.fromTo("#desktop-pillar-card-2",
           { y: 350, opacity: 0 },
@@ -144,11 +147,11 @@ export default function NutritionPillars() {
           0
         );
 
-        tl.to("#desktop-pillar-card-2 .card-body-content", {
-          opacity: 1,
-          duration: 0.8,
-          ease: "power2.inOut"
-        }, 0.2);
+        tl.fromTo("#desktop-pillar-card-2 .card-body-content",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.8, ease: "power2.inOut" },
+          0.2
+        );
 
         // Frame 2 to Frame 3: Card 1 shifts higher by -220px, Card 2 shifts up by -110px (body fades out), Card 3 fades in and slides from down (y: 350px -> 0)
         tl.to("#desktop-pillar-card-1", {
@@ -175,11 +178,11 @@ export default function NutritionPillars() {
           1.2
         );
 
-        tl.to("#desktop-pillar-card-3 .card-body-content", {
-          opacity: 1,
-          duration: 0.8,
-          ease: "power2.inOut"
-        }, 1.4);
+        tl.fromTo("#desktop-pillar-card-3 .card-body-content",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.8, ease: "power2.inOut" },
+          1.4
+        );
       }
     },
     { scope: sectionRef }
@@ -206,16 +209,16 @@ export default function NutritionPillars() {
             <div className="w-[6em] h-[2px] bg-[#2e3a1f]/10 mt-[2em]" />
           </div>
 
-          {/* Main Inversed Split Row (Aligned to start to reduce whitespace) */}
-          <div className="flex flex-row gap-[5em] items-start flex-1 min-h-0 mb-[2em] mt-[0.5em]">
+          {/* Main Inversed Split Row (Vertically center-aligned to match design system) */}
+          <div className="flex flex-row gap-[5em] items-center flex-1 min-h-0 mb-[2em] mt-[0.5em]">
             
-            {/* Left Column: Stacked Cards Deck (Absolute Layering starting at top-[240px]) */}
-            <div className="w-1/2 relative h-[38em] mt-[0.5em]">
+            {/* Left Column: Stacked Cards Deck (Absolute Layering starting at top-0) */}
+            <div className="w-1/2 relative h-[31em] mt-[0.5em]">
               
               {/* Card 1 (Starts Active) */}
               <div
                 id="desktop-pillar-card-1"
-                className="absolute inset-x-0 top-[240px] h-[28em] bg-[#EDE5DB]/95 backdrop-blur border border-[#2e3a1f]/10 p-[2.8em] rounded-[24px] flex flex-col justify-between shadow-[0_15px_45px_rgba(46,58,31,0.03)] z-10"
+                className="absolute inset-x-0 top-0 h-[31em] bg-[#EDE5DB]/95 backdrop-blur border border-[#2e3a1f]/10 p-[2.8em] rounded-[24px] flex flex-col justify-between shadow-[0_15px_45px_rgba(46,58,31,0.03)] z-10"
               >
                 {/* Header content (Always visible) */}
                 <div className="flex justify-between items-start mb-[1em] h-[3.5em]">
@@ -250,7 +253,7 @@ export default function NutritionPillars() {
               {/* Card 2 */}
               <div
                 id="desktop-pillar-card-2"
-                className="absolute inset-x-0 top-[240px] h-[28em] bg-[#EDE5DB]/95 backdrop-blur border border-[#2e3a1f]/10 p-[2.8em] rounded-[24px] flex flex-col justify-between shadow-[0_15px_45px_rgba(46,58,31,0.03)] z-20"
+                className="absolute inset-x-0 top-0 h-[31em] bg-[#EDE5DB]/95 backdrop-blur border border-[#2e3a1f]/10 p-[2.8em] rounded-[24px] flex flex-col justify-between shadow-[0_15px_45px_rgba(46,58,31,0.03)] z-20"
               >
                 {/* Header content (Always visible) */}
                 <div className="flex justify-between items-start mb-[1em] h-[3.5em]">
@@ -285,7 +288,7 @@ export default function NutritionPillars() {
               {/* Card 3 */}
               <div
                 id="desktop-pillar-card-3"
-                className="absolute inset-x-0 top-[240px] h-[28em] bg-[#EDE5DB]/95 backdrop-blur border border-[#2e3a1f]/10 p-[2.8em] rounded-[24px] flex flex-col justify-between shadow-[0_15px_45px_rgba(46,58,31,0.03)] z-30"
+                className="absolute inset-x-0 top-0 h-[31em] bg-[#EDE5DB]/95 backdrop-blur border border-[#2e3a1f]/10 p-[2.8em] rounded-[24px] flex flex-col justify-between shadow-[0_15px_45px_rgba(46,58,31,0.03)] z-30"
               >
                 {/* Header content (Always visible) */}
                 <div className="flex justify-between items-start mb-[1em] h-[3.5em]">
@@ -320,7 +323,7 @@ export default function NutritionPillars() {
             </div>
 
             {/* Right Column: Pinned Biometric Viewport Dashboard */}
-            <div className="w-1/2 flex items-start justify-center select-none pt-[240px]">
+            <div className="w-1/2 flex items-center justify-center select-none">
               <div className="relative w-[24em] h-[24em] rounded-full border border-[#2e3a1f]/10 bg-[#EDE5DB]/35 flex items-center justify-center p-[2.2em] shadow-[inset_0_4px_24px_rgba(46,58,31,0.02)]">
                 
                 {/* Outer Rotating Telemetry Ticks */}

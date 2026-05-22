@@ -271,15 +271,20 @@ export default function Navigation() {
         <button
           id="menu-btn"
           onClick={() => setMenuOpen(true)}
-          className="flex items-center gap-3 cursor-pointer text-current hover:opacity-85 transition-opacity"
+          className="flex items-center cursor-pointer text-current hover:opacity-90 transition-opacity group"
           aria-label="Open menu"
         >
-          {/* Square rounded hamburger icon */}
-          <div className="w-[26px] h-[26px] border border-current/40 rounded-md flex flex-col justify-center items-center gap-[3.5px]">
-            <span className="w-3.5 h-[1.2px] bg-current block" />
-            <span className="w-3.5 h-[1.2px] bg-current block" />
+          {/* Staggered menu icon */}
+          <div className="w-[26px] h-[26px] flex items-center justify-center">
+            <div className="w-[22px] h-[16px] flex flex-col justify-between items-stretch">
+              {/* Top line (shifted right, expands left on hover) */}
+              <div className="h-[2.5px] bg-current rounded-full transition-all duration-300 ease-out w-[55%] self-end group-hover:w-full" />
+              {/* Middle line */}
+              <div className="h-[2.5px] bg-current rounded-full w-full" />
+              {/* Bottom line (shifted left, expands right on hover) */}
+              <div className="h-[2.5px] bg-current rounded-full transition-all duration-300 ease-out w-[55%] self-start group-hover:w-full" />
+            </div>
           </div>
-          <span className="text-[14px] font-medium tracking-[0.05em] uppercase hidden md:block">Menu</span>
         </button>
 
         <a href="/" className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2" aria-label="Nutrigetic">
@@ -333,14 +338,16 @@ export default function Navigation() {
             <div className="w-full flex items-center justify-between px-[1.2em] lg:px-[1.88em] h-[4em] md:h-[5em] shrink-0 relative">
               <button
                 onClick={closeMenu}
-                className="flex items-center gap-3 cursor-pointer text-[#F4EDE6] hover:opacity-80 transition-opacity z-[130]"
+                className="flex items-center cursor-pointer text-[#F4EDE6] hover:opacity-80 transition-opacity z-[130]"
                 aria-label="Close menu"
               >
-                {/* Square rounded close icon */}
-                <div className="w-[26px] h-[26px] border border-white/40 rounded-md flex items-center justify-center">
-                  <span className="w-3.5 h-[1.2px] bg-white block" />
+                {/* Close icon */}
+                <div className="w-[26px] h-[26px] flex items-center justify-center">
+                  <svg width="22" height="22" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round">
+                    <line x1="2" y1="2" x2="14" y2="14" />
+                    <line x1="14" y1="2" x2="2" y2="14" />
+                  </svg>
                 </div>
-                <span className="text-[14px] font-medium tracking-[0.05em] uppercase">Close</span>
               </button>
 
               <a href="/" onClick={closeMenu} className="absolute left-1/2 -translate-x-1/2 z-[130]" aria-label="Nutrigetic">
