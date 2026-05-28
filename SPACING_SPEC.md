@@ -1,6 +1,6 @@
-# Farm Minerals Spacing Specification
+# Nutrigetics Spacing Specification
 
-This document details the padding, margin, and gap values for each section of the Farm Minerals website across key breakpoints.
+This document details the padding, margin, and gap values for each section of the Nutrigetics website across key breakpoints.
 
 > [!NOTE]
 > All `em` values scale relative to the `body` font-size, which is `0.96vw` on desktop.
@@ -92,4 +92,4 @@ This document details the padding, margin, and gap values for each section of th
 ---
 
 > [!TIP]
-> All measurements derived from `farmminerals-live.css`. Values marked as `1em` or `1.88em` refer to the CSS variables `--padding-mobile` and `--padding-web` respectively.
+> All measurements derived from `reference-live.css`. Values marked as `1em` or `1.88em` refer to the CSS variables `--padding-mobile` and `--padding-web` respectively.

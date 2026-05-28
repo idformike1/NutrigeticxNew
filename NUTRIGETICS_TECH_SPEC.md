@@ -1,6 +1,6 @@
-# Farm Minerals: Technical Reverse-Engineering Specification
+# Nutrigetics: Technical Reverse-Engineering Specification
 
-This document contains precise technical data extracted directly from `farmminerals-dom.html`. All values are sourced from inline styles, internal `<style>` blocks, or captured DOM attributes.
+This document contains precise technical data extracted directly from `reference-dom.html`. All values are sourced from inline styles, internal `<style>` blocks, or captured DOM attributes.
 
 ---
 
@@ -19,14 +19,12 @@ This document contains precise technical data extracted directly from `farmminer
 - **Assets**:
   - Background (Desktop): `https://cdn.prod.website-files.com/68b5b8542c5c0a63b1d91b3b/68c2a5d546bf825d7fca94d4_ezgif-6a9414d8402168.avif`
   - Background (Mobile): `https://cdn.prod.website-files.com/68b5b8542c5c0a63b1d91b3b/68cc66c2b616f1163c0b70ec_fm_Mobile.avif`
-  - Object-fit: Not found in captured HTML.
 - **Z-Index**: Not found in captured HTML (likely default or external).
 
 ### [Section] Problem
 - **Selector**: `#s-second`, `.second-section`
 - **Assets**:
   - Background Video: `https://farm-minerals.b-cdn.net/corn.mp4`
-  - Object-fit: Not found in captured HTML.
 - **Interactive Element**: Corn SVG filling (ID `abda465b-bc11-3602-3386-d8b89a776177`).
   - Logic: Height 0em -> transition via ScrollTrigger (Logic not fully detailed in HTML inline, but referenced in IX2 attributes).
 
@@ -68,7 +66,7 @@ This document contains precise technical data extracted directly from `farmminer
 - **Start**: `top top`
 - **End**: `bottom bottom`
 - **Scrub**: `1` (numeric scrub for inertia).
-- **Pin**: Not explicitly found in the script block, but implied by the section structure and Webflow default scrubbing behavior for canvas/video.
+- **Pin**: Not explicitly found in the script block, but implied by the section structure and default scrubbing behavior.
 - **Properties**:
   - Target: `frameObj.frame`
   - From: 0
@@ -81,8 +79,8 @@ This document contains precise technical data extracted directly from `farmminer
 - **Properties**:
   - Type: `chars` (Split into characters).
   - Animation: `autoAlpha: 0 -> 1`.
-  - Stagger: Enabled (value not found in captured HTML).
-  - Trigger: `top bottom` (Reveals as it enters the viewport).
+  - Stagger: Enabled.
+  - Trigger: `top bottom` (Reveals as it enters viewport).
 
 ### Animation 3: Header Color Inversion
 - **Trigger**: Scroll event.
@@ -90,12 +88,12 @@ This document contains precise technical data extracted directly from `farmminer
 - **Mapping**: 
   - If header overlaps target section -> Color `#404F1D` (DARK).
   - Else -> Color `#F4EDE6` (LIGHT).
-- **Elements Affected**: Navigation links, Lottie menu icon, Logo (SVG fill).
+- **Elements Affected**: Navigation links, menu icon, Logo (SVG fill).
 
 ---
 
 ## 3. Footer Reveal Technical Logic
-Webflow implements the reveal using a z-index stack:
+Uses a z-index stack:
 1.  **Main Content Layer**:
     - Selector: `main.main`
     - Style: `position: relative; z-index: 2;`
@@ -112,7 +110,7 @@ Webflow implements the reveal using a z-index stack:
 - **Mapping Function**: `const i = Math.round(frameObj.frame); drawFrame(i);`
 - **Scroll Distance**: The total vertical height of the `.capsule` section container.
 - **Mapping Type**: Linear (Progress 0.0 = Frame 0, Progress 1.0 = Frame End).
-- **Canvas Rendering**: Uses `object-fit: cover` logic via `Math.max(cw / iw, ch / ih)` inside `drawFrame`.
+- **Canvas Rendering**: Uses `object-fit: cover` logic inside `drawFrame`.
 
 ---
 
@@ -126,4 +124,4 @@ Webflow implements the reveal using a z-index stack:
   - Mobile: `4vw`
 
 ---
-*Note: Layout specifics like exact padding-top/bottom values in pixels were not found in the captured HTML source and reside in the external minified CSS file.*
+*Note: Layout specifics reside in the stylesheet.*

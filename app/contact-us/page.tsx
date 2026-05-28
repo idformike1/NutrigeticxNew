@@ -14,14 +14,14 @@ export default function ContactPage() {
           <div className="grid md:grid-cols-2 gap-20">
             <div>
               <p className="text-18-caps text-[#2e3a1f]/60 mb-12">
-                WE REVIEW EACH REQUEST TO RESERVE EARLY ACCESS FOR FARMS THAT CAN BENEFIT MOST.
+                WE REVIEW EACH REQUEST TO RESERVE EARLY ACCESS FOR CLINICAL PROGRAMS THAT ALIGN WITH YOUR GOALS.
               </p>
               
               <div className="flex flex-col gap-8">
                 <div>
                   <p className="text-14-caps text-[#8aab5a] mb-2">Email</p>
-                  <a href="mailto:hello@farmminerals.com" className="text-30-regular text-[#2e3a1f] hover:opacity-60 transition-opacity">
-                    hello@farmminerals.com
+                  <a href="mailto:hello@nutrigetic.com" className="text-30-regular text-[#2e3a1f] hover:opacity-60 transition-opacity">
+                    hello@nutrigetic.com
                   </a>
                 </div>
                 <div>
@@ -39,8 +39,8 @@ export default function ContactPage() {
                 <input type="text" placeholder="Last Name" className="bg-transparent border-b border-[#2e3a1f]/20 py-4 text-14-caps focus:border-[#2e3a1f] outline-none" />
               </div>
               <input type="email" placeholder="Email Address" className="bg-transparent border-b border-[#2e3a1f]/20 py-4 text-14-caps focus:border-[#2e3a1f] outline-none" />
-              <input type="text" placeholder="Farm Name / Company" className="bg-transparent border-b border-[#2e3a1f]/20 py-4 text-14-caps focus:border-[#2e3a1f] outline-none" />
-              <textarea placeholder="Tell us about your operation" rows={4} className="bg-transparent border-b border-[#2e3a1f]/20 py-4 text-14-caps focus:border-[#2e3a1f] outline-none resize-none" />
+              <input type="text" placeholder="Organization / Company" className="bg-transparent border-b border-[#2e3a1f]/20 py-4 text-14-caps focus:border-[#2e3a1f] outline-none" />
+              <textarea placeholder="Tell us about your performance goals" rows={4} className="bg-transparent border-b border-[#2e3a1f]/20 py-4 text-14-caps focus:border-[#2e3a1f] outline-none resize-none" />
               
               <button type="submit" className="mt-8 px-10 py-4 bg-[#2e3a1f] text-[#F4EDE6] text-14-caps w-fit transition-transform hover:scale-105 active:scale-95">
                 Submit Request

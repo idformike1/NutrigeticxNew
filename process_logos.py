@@ -118,7 +118,9 @@ def process_tga(input_path, output_path, bg_color='white', crop_right_half=False
         f.write(out_data)
 
 def main():
-    images_dir = "/Users/rajumaharjan/Documents/Anit Gravity Projects/farmminerals-clone/public/images"
+    # Use relative pathing based on script location
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    images_dir = os.path.join(script_dir, "public/images")
     
     # 1. Akshaya Patra (Black background)
     akshaya_jpg = os.path.join(images_dir, "media__1779420762685.jpg")

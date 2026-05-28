@@ -3,13 +3,13 @@ import "./globals.css";
 import SmoothScrollProvider from "./components/SmoothScrollProvider";
 
 export const metadata: Metadata = {
-  title: "Farm Minerals | Highly Efficient Fertilizers & Feed Additives",
+  title: "Nutrigetic | Clinical Performance & Human Nutrition",
   description:
-    "Farm Minerals creates next-generation plant nutrition using carbon-capsule technology that delivers nutrients with zero waste and zero emissions.",
+    "Nutrigetic creates next-generation performance coaching and human nutrition programs using advanced bio-telemetry and cellular absorption technologies.",
   openGraph: {
-    title: "Farm Minerals | Fertilizer, Reinvented.",
-    description: "Carbon-capsule technology for your crops and the planet.",
-    siteName: "Farm Minerals",
+    title: "Nutrigetic | Performance & Longevity, Reinvented.",
+    description: "Advanced cellular nutrition and clinical performance for elite athletes and longevity.",
+    siteName: "Nutrigetic",
   },
 };
 

@@ -1,19 +1,19 @@
-# Farm Minerals: Technical & Design Specification
+# Nutrigetics: Technical & Design Specification
 
-This document serves as the comprehensive source of truth for the Farm Minerals web platform clone, outlining the structural, visual, and interactive systems as of May 2026.
+This document serves as the comprehensive source of truth for the Nutrigetics web platform, outlining the structural, visual, and interactive systems as of May 2026.
 
 ---
 
 ## 1. Full Page Structure (Visual Order)
 1. **Global Navigation**: Fixed header with dynamic theme switching.
 2. **Hero Section**: High-impact brand introduction with immersive video/image background and product feature.
-3. **Problem Section**: Scientific context "The nitrogen problem" with interactive SVG path-filling and video.
+3. **Problem Section**: Scientific context "The metabolic problem" with interactive SVG path-filling and video.
 4. **Product Showcase (Capsule)**: Scroll-linked video scrubbing (scrubbing `tab.mp4`) with sticky pinning.
 5. **Stats Grid**: Numerical performance metrics with auto-counting animations.
-6. **Carbon Section**: Large-scale environmental impact section with parallax background.
-7. **Products Grid**: Modular cards for CropTab™, Nutripeak™, and ElevateFeed™.
-8. **Field Trials (Map)**: Interactive global map with location markers.
-9. **Community Carousel**: Horizontal-scrolling latest news and impact stories.
+6. **Carbon Section**: Large-scale environmental/metabolic impact section with parallax background.
+7. **Products Grid**: Modular cards for NutriTab™, NutriPeak™, and NutriCore™.
+8. **Field Trials (Map)**: Interactive global map with study locations.
+9. **Community Carousel**: Horizontal-scrolling latest news and clinical impact stories.
 10. **Final CTA**: "See the Difference" panoramic section.
 11. **Footer**: Sticky-reveal footer with large brand iconography.
 
@@ -24,12 +24,12 @@ This document serves as the comprehensive source of truth for the Farm Minerals 
 | :--- | :--- | :--- |
 | `Navigation` | `app/components/Navigation.tsx` | Fixed header, theme toggling, mobile menu. |
 | `Hero` | `app/components/Hero.tsx` | Main brand entrance + CTA. |
-| `ProblemSection` | `app/components/ProblemSection.tsx` | Contextual science + animated corn SVG. |
+| `ProblemSection` | `app/components/ProblemSection.tsx` | Contextual science + animated dynamic SVG. |
 | `ProductShowcase` | `app/components/ProductShowcase.tsx` | Sticky video scrubbing (the "Capsule" interaction). |
 | `StatsGrid` | `app/components/StatsGrid.tsx` | Performance counters + benefit cards. |
-| `CarbonSection` | `app/components/CarbonSection.tsx` | Large text + parallax environmental section. |
+| `CarbonSection` | `app/components/CarbonSection.tsx` | Large text + parallax metabolic section. |
 | `ProductsSection` | `app/components/ProductsSection.tsx` | Tiled product catalog. |
-| `TrialsSection` | `app/components/TrialsSection.tsx` | Global map + trial locations. |
+| `TrialsSection` | `app/components/TrialsSection.tsx` | Global map + study locations. |
 | `CommunitySection` | `app/components/CommunitySection.tsx` | Horizontal carousel for impact stories. |
 | `FinalCTA` | `app/components/FinalCTA.tsx` | Final conversion point. |
 | `Footer` | `app/components/Footer.tsx` | Brand links, iconography, and reveal effect. |
@@ -105,10 +105,10 @@ This document serves as the comprehensive source of truth for the Farm Minerals 
 ---
 
 ## 9. Known Discrepancies
-- **Image Optimization**: Local images are served as static files; live site uses Webflow's Akamai CDN with dynamic resizing.
+- **Image Optimization**: Local images are served as static files; live site uses CDN host with dynamic resizing.
 - **Form Submission**: Contact form is visual/frontend-only; no backend persistence implemented.
-- **Scroll Logic**: Native Webflow ScrollTrigger vs. custom Lenis + GSAP implementation (clone offers smoother inertia).
-- **SVG Paths**: Some SVG path data in `ProblemSection` was simplified for performance during the capture-to-code translation.
+- **Scroll Logic**: Native custom ScrollTrigger vs. custom Lenis + GSAP implementation.
+- **SVG Paths**: Some SVG path data in `ProblemSection` was simplified for performance.
 
 ---
 *Created by Antigravity (Advanced Agentic Coding @ Google Deepmind)*
