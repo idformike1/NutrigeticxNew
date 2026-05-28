@@ -24,20 +24,20 @@ This document contains precise technical data extracted directly from `reference
 ### [Section] Problem
 - **Selector**: `#s-second`, `.second-section`
 - **Assets**:
-  - Background Video: `https://farm-minerals.b-cdn.net/corn.mp4`
+  - Background Video: `/videos/problem.mp4`
 - **Interactive Element**: Corn SVG filling (ID `abda465b-bc11-3602-3386-d8b89a776177`).
   - Logic: Height 0em -> transition via ScrollTrigger (Logic not fully detailed in HTML inline, but referenced in IX2 attributes).
 
 ### [Section] Product Showcase (Capsule)
 - **Selector**: `.capsule`
 - **Assets**:
-  - Video Scrubbing: `https://farm-minerals.b-cdn.net/tab.mp4`
+  - Video Scrubbing: `/videos/scrub.mp4`
 - **Z-Index**: Not found in captured HTML.
 
 ### [Section] Stats
 - **Selector**: `#s-numbers`, `.numbers`
 - **Assets**:
-  - Video: `https://farm-minerals.b-cdn.net/farm_main_video.mp4`
+  - Video: `/videos/main.mp4`
 - **Typography**:
   - `.text-80-regular`: Counter font size.
 
